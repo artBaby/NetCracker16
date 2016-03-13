@@ -1,3 +1,5 @@
+package netCrackerTestApp;
+
 /**
  * Created by Artemiy on 13.03.2016.
  */
