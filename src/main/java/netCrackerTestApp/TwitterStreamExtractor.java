@@ -20,7 +20,7 @@ public class TwitterStreamExtractor {
     final JavaSparkContext sc = new JavaSparkContext(new SparkConf().setAppName("TwitterStreamExtractor").setMaster("local[4]"));
     final List<Account> accounts = MongoDao.getAccounts();
 
-    String[] topics = {"art"/*,"music","news","policy"*/};
+    String[] topics = {"art","music","news","policy"};
     List<String> listTopics = Arrays.asList(topics);
 
     private List<StreamTask> getStreamTasks(){
