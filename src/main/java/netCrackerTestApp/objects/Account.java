@@ -1,18 +1,21 @@
-package netCrackerTestApp;
+package netCrackerTestApp.objects;
 
 
-public class Account {
+import java.io.Serializable;
+
+public class Account implements Serializable{
     private String consumerKey;
     private String consumerSecret;
     private String accessToken;
     private String accessTokenSecret;
 
-    public Account(String accessToken, String consumerSecret, String consumerKey, String accessTokenSecret) {
+    public Account( String consumerKey, String consumerSecret, String accessToken, String accessTokenSecret) {
         this.accessToken = accessToken;
         this.consumerSecret = consumerSecret;
         this.consumerKey = consumerKey;
         this.accessTokenSecret = accessTokenSecret;
     }
+
     public String getConsumerKey() {
         return consumerKey;
     }
