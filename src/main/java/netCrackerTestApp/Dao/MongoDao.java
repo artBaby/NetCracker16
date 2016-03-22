@@ -4,6 +4,7 @@ package netCrackerTestApp.Dao;
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import netCrackerTestApp.SentimentAnalysis;
 import netCrackerTestApp.objects.Account;
 import org.bson.Document;
 import org.springframework.social.twitter.api.Tweet;
@@ -31,13 +32,15 @@ public class MongoDao {
         return resultAccounts;
     }
 
-    public static void saveTweet(Tweet tweet) {
+    public  void saveTweet(Tweet tweet, int sentimentTweet) {
         Document document = new Document("_id", tweet.getId())
                 .append("userId", tweet.getFromUserId())
                 .append("textPost", tweet.getText())
                 .append("isRetweet",tweet.isRetweet())
                 .append("isRetweeted", tweet.isRetweeted())
-                .append("retweetCount", tweet.getRetweetCount());
+                .append("retweetCount", tweet.getRetweetCount())
+                .append("sentimentTweet", sentimentTweet)
+                .append("views", 0);
         tweets.insertOne(document);
     }
 

@@ -1,7 +1,9 @@
 package netCrackerTestApp;
 
+import ch.qos.logback.core.status.Status;
 import netCrackerTestApp.Dao.MongoDao;
 import netCrackerTestApp.objects.Account;
+import org.apache.hadoop.hdfs.protocol.proto.DataTransferProtos;
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
@@ -20,7 +22,7 @@ public class TwitterStreamExtractor {
     final JavaSparkContext sc = new JavaSparkContext(new SparkConf().setAppName("TwitterStreamExtractor").setMaster("local[4]"));
     final List<Account> accounts = MongoDao.getAccounts();
 
-    String[] topics = {"art","music","news","policy"};
+    String[] topics = {"sport"/*,"music","news","policy"*/};
     List<String> listTopics = Arrays.asList(topics);
 
     private List<StreamTask> getStreamTasks(){
@@ -42,6 +44,7 @@ public class TwitterStreamExtractor {
                                                                 streamTask.account.getAccessToken(),
                                                                 streamTask.account.getAccessTokenSecret()
                                                                 );
+
             TwitterStreamListener twitterStreamListener = new TwitterStreamListener(LoggerFactory.getLogger(TwitterStreamExtractor.class));
             twitter.streamingOperations().filter(streamTask.topic, Arrays.asList(twitterStreamListener));
             Thread.sleep(100000000000l);

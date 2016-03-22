@@ -13,23 +13,22 @@ import java.util.List;
 import java.util.Properties;
 
 public class SentimentAnalysis {
-    public static void main(String[] args) {
+    StanfordCoreNLP pipeline;
 
-        String text = "I am feeling very sad and frustrated.";
+    public SentimentAnalysis() {
         Properties props = new Properties();
         props.setProperty("annotators", "tokenize, ssplit, pos, lemma, parse, sentiment");
-        StanfordCoreNLP pipeline = new StanfordCoreNLP(props);
+        pipeline = new StanfordCoreNLP(props);
+    }
 
-        int[] sentimentText = {-2, -1, 0, 1, 2};
-//        String[] sentimentText = { "Very Negative","Negative", "Neutral", "Positive", "Very Positive"}
-
-        Annotation annotation = pipeline.process(text);
-
+    public int getSentimentTweet(String textPost) {
+        int assessmentSentiment = -10;
+        Annotation annotation = pipeline.process(textPost);
         List<CoreMap> sentences = annotation.get(CoreAnnotations.SentencesAnnotation.class);
         for (CoreMap sentence : sentences) {
             Tree tree = sentence.get(SentimentCoreAnnotations.SentimentAnnotatedTree.class);
-            int score = RNNCoreAnnotations.getPredictedClass(tree);
-            System.out.println(sentimentText[score] + "\t" + sentence);
+            assessmentSentiment = RNNCoreAnnotations.getPredictedClass(tree);
         }
+        return assessmentSentiment;
     }
 }

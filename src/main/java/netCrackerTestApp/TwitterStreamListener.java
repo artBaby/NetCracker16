@@ -12,6 +12,8 @@ import java.util.List;
 public class TwitterStreamListener implements StreamListener, Serializable {
 
     private final Logger logger;
+    SentimentAnalysis sentimentAnalysis = new SentimentAnalysis();
+    MongoDao mongoDao = new MongoDao();
 
 
     public TwitterStreamListener(Logger logger) {
@@ -20,8 +22,13 @@ public class TwitterStreamListener implements StreamListener, Serializable {
 
     @Override
     public void onTweet(Tweet tweet) {
-        logger.info("tweet = " + tweet);
-        MongoDao.saveTweet(tweet);
+        if(tweet.getLanguageCode().equals("en")){
+            logger.info("tweet = " + tweet);
+            int sentimentTweet = sentimentAnalysis.getSentimentTweet(tweet.getText());
+
+            mongoDao.saveTweet(tweet, sentimentTweet);
+        }
+
 
     }
 
