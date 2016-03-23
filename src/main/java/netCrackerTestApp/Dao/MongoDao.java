@@ -11,17 +11,18 @@ import org.bson.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.social.twitter.api.Tweet;
+
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class MongoDao {
     private final Logger logger = LoggerFactory.getLogger(MongoDao.class);
-    private static final MongoDatabase db = new MongoClient("localhost").getDatabase("db");
-    private static final MongoCollection<Document> accounts = db.getCollection("accounts");
-    private static final MongoCollection<Document> tweets = db.getCollection("tweets");
+    private final MongoDatabase db = new MongoClient("localhost").getDatabase("db");
+    private final MongoCollection<Document> accounts = db.getCollection("accounts");
+    private final MongoCollection<Document> tweets = db.getCollection("tweets");
 
-    public  List<Account> getAccounts() {
+    public List<Account> getAccounts() {
         List<Account> resultAccounts = new ArrayList<>();
 
         for (Document document : accounts.find()) {
@@ -30,16 +31,16 @@ public class MongoDao {
             String consumerSecret = (String) document.get("consumerSecret");
             String accessToken = (String) document.get("accessToken");
             String accessTokenSecret = (String) document.get("accessTokenSecret");
-            resultAccounts.add(new Account(consumerKey,consumerSecret,accessToken,accessTokenSecret));
+            resultAccounts.add(new Account(consumerKey, consumerSecret, accessToken, accessTokenSecret));
         }
         return resultAccounts;
     }
 
-    public  void saveTweet(Tweet tweet, int sentimentTweet) {
+    public void saveTweet(Tweet tweet, int sentimentTweet) {
         Document document = new Document("_id", tweet.getId())
                 .append("userName", tweet.getUser().getName())
                 .append("textPost", tweet.getText())
-                .append("isRetweet",tweet.isRetweet())
+                .append("isRetweet", tweet.isRetweet())
                 .append("isRetweeted", tweet.isRetweeted())
                 .append("retweetCount", tweet.getRetweetCount())
                 .append("sentimentTweet", sentimentTweet)
@@ -47,11 +48,11 @@ public class MongoDao {
         tweets.insertOne(document);
     }
 
-    public List<SentimentTweet> getTweets (String str){
+    public List<SentimentTweet> getTweets(String str) {
         List<SentimentTweet> sentimentTweetList = new ArrayList<SentimentTweet>();
 
         BasicDBObject basicDBObject = new BasicDBObject();
-        basicDBObject.put("textPost",  java.util.regex.Pattern.compile("("+str+")"));
+        basicDBObject.put("textPost", java.util.regex.Pattern.compile("(" + str + ")"));
         FindIterable<Document> documents = tweets.find(basicDBObject);
 
         for (Document document : documents) {

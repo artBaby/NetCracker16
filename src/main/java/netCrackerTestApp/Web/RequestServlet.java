@@ -1,6 +1,5 @@
 package netCrackerTestApp.Web;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,15 +18,8 @@ public class RequestServlet extends HttpServlet {
     void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String searchText;
-        searchText = request.getParameter("searchRequestText");
-
+        String searchText = request.getParameter("searchRequestText");
         System.out.println("searchText = " + searchText);
-
-//            RequestDispatcher RD = getServletContext().getRequestDispatcher("/AreaCheckServlet");
-//            RD.include(request, response);
-
-
         }
     }
 

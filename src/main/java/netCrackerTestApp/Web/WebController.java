@@ -47,14 +47,6 @@ public class WebController {
         mav.setViewName("startPage");
         return mav;
     }
-//
-//    @RequestMapping
-//            (value = "/hello", method = RequestMethod.GET)
-//    public ModelAndView hello() {
-//        ModelAndView mav = new ModelAndView();
-//        mav.setViewName("hello");
-//        return mav;
-//    }
 
     @RequestMapping
             (value = "/main", method = RequestMethod.GET)
