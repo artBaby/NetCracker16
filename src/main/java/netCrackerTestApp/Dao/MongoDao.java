@@ -49,7 +49,7 @@ public class MongoDao {
     }
 
     public List<SentimentTweet> getTweets(String str) {
-        List<SentimentTweet> sentimentTweetList = new ArrayList<SentimentTweet>();
+        List<SentimentTweet> sentimentTweetList = new ArrayList<>();
 
         BasicDBObject basicDBObject = new BasicDBObject();
         basicDBObject.put("textPost", java.util.regex.Pattern.compile("(" + str + ")"));

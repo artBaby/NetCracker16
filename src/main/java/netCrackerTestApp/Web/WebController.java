@@ -57,12 +57,12 @@ public class WebController {
     }
 
     @RequestMapping
-            (value = "/RequestServlet", method = RequestMethod.POST)
+            (value = "/startPage", method = RequestMethod.POST)
     public ModelAndView request(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestServlet requestServlet = new RequestServlet();
-        requestServlet.processRequest(request, response);
         ModelAndView mav = new ModelAndView();
-        mav.setViewName("startPage");
+        String searchText = request.getParameter("searchRequestText");
+        System.out.println("searchText = " + searchText);
+        mav.setViewName("hello");
         return mav;
     }
 }
