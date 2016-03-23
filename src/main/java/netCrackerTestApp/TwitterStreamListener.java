@@ -2,23 +2,17 @@ package netCrackerTestApp;
 
 import netCrackerTestApp.Dao.MongoDao;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.social.twitter.api.*;
-import org.springframework.social.twitter.api.impl.TwitterTemplate;
-
 import java.io.Serializable;
-import java.util.List;
 
 
 public class TwitterStreamListener implements StreamListener, Serializable {
 
-    private final Logger logger;
-    SentimentAnalysis sentimentAnalysis = new SentimentAnalysis();
-    MongoDao mongoDao = new MongoDao();
+    private final Logger logger = LoggerFactory.getLogger(TwitterStreamListener.class);
+    private final SentimentAnalysis sentimentAnalysis = new SentimentAnalysis();
+    private final MongoDao mongoDao = new MongoDao();
 
-
-    public TwitterStreamListener(Logger logger) {
-        this.logger = logger;
-    }
 
     @Override
     public void onTweet(Tweet tweet) {
@@ -28,8 +22,6 @@ public class TwitterStreamListener implements StreamListener, Serializable {
 
             mongoDao.saveTweet(tweet, sentimentTweet);
         }
-
-
     }
 
     @Override
