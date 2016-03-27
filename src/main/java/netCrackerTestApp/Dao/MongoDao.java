@@ -54,7 +54,7 @@ public class MongoDao {
         tweets.insertOne(document);
     }
 
-    public List<SentimentTweet> getTweets(String str) {
+    public List<SentimentTweet> getTweetsFromDB(String str) {
         List<SentimentTweet> sentimentTweetList = new ArrayList<>();
 
         BasicDBObject basicDBObject = new BasicDBObject();

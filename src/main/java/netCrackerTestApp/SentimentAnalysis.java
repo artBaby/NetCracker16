@@ -8,8 +8,10 @@ import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 import edu.stanford.nlp.sentiment.SentimentCoreAnnotations;
 import edu.stanford.nlp.trees.Tree;
 import edu.stanford.nlp.util.CoreMap;
-import java.util.List;
-import java.util.Properties;
+import netCrackerTestApp.objects.SentimentTweet;
+
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class SentimentAnalysis {
     StanfordCoreNLP pipeline;
@@ -29,5 +31,18 @@ public class SentimentAnalysis {
             assessmentSentiment = RNNCoreAnnotations.getPredictedClass(tree);
         }
         return assessmentSentiment;
+    }
+
+    public Map<Integer, Long> getSentimentResultOnTopic (List<SentimentTweet> sentimentTweetList){
+        Map<Integer, Long> collect = sentimentTweetList.stream()
+                .collect(Collectors.groupingBy(SentimentTweet::getSentimentResult, Collectors.counting()));
+        return collect;
+    }
+
+    public List<SentimentTweet> getTweetsOnTopic (List<SentimentTweet> sentimentTweetList){
+        List<SentimentTweet> listTweets = new ArrayList<>();
+        Map<Integer, List<SentimentTweet>> collect = sentimentTweetList.stream().collect(Collectors.groupingBy(SentimentTweet::getSentimentResult));
+        collect.forEach((sentimentResult, sentimentTweets) -> listTweets.add(new SentimentTweet(collect.get(sentimentResult).get(0).getTextPost(),sentimentResult)));
+        return listTweets;
     }
 }
