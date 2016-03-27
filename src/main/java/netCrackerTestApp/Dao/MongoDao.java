@@ -17,10 +17,16 @@ import java.util.List;
 
 
 public class MongoDao {
+    private final static  MongoDao mongoDao = new MongoDao();
     private final Logger logger = LoggerFactory.getLogger(MongoDao.class);
+
     private final MongoDatabase db = new MongoClient("localhost").getDatabase("db");
     private final MongoCollection<Document> accounts = db.getCollection("accounts");
     private final MongoCollection<Document> tweets = db.getCollection("tweets");
+
+    public static MongoDao getInstance(){
+        return mongoDao;
+    }
 
     public List<Account> getAccounts() {
         List<Account> resultAccounts = new ArrayList<>();

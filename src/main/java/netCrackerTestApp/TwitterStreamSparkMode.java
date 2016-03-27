@@ -14,12 +14,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * Created by dasha on 23.03.16.
- */
+
 public class TwitterStreamSparkMode {
     private final Logger logger = LoggerFactory.getLogger(TwitterStreamExtractor.class);
-    private final MongoDao mongoDao = new MongoDao();
+    MongoDao mongoDao = MongoDao.getInstance();
 
     final List<String> listTopics = Arrays.asList("sport"/*,"music","news","policy"*/);
     final List<Account> accounts = mongoDao.getAccounts();

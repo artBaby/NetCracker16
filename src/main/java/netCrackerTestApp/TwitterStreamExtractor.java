@@ -14,8 +14,8 @@ import java.util.List;
 
 public class TwitterStreamExtractor {
     private final Logger logger = LoggerFactory.getLogger(TwitterStreamExtractor.class);
-    private final MongoDao mongoDao = new MongoDao();
     final List<String> listTopics = Arrays.asList("sport"/*,"music","news","policy"*/);
+    MongoDao mongoDao = MongoDao.getInstance();
     final List<Account> accounts = mongoDao.getAccounts();
 
     private List<StreamTask> getStreamTasks() {

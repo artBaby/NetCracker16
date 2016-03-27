@@ -11,7 +11,7 @@ public class TwitterStreamListener implements StreamListener, Serializable {
 
     private final Logger logger = LoggerFactory.getLogger(TwitterStreamListener.class);
     private final SentimentAnalysis sentimentAnalysis = new SentimentAnalysis();
-    private final MongoDao mongoDao = new MongoDao();
+    MongoDao mongoDao = MongoDao.getInstance();
 
 
     @Override

@@ -8,7 +8,7 @@ import java.io.IOException;
 public class MainForTests {
 
     public static void main(String[] arg) throws IOException {
-        MongoDao mongoDao = new MongoDao();
+        MongoDao mongoDao = MongoDao.getInstance();
         mongoDao.getTweets("Renault Sport");
 
     }
