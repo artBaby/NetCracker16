@@ -13,6 +13,8 @@
             </p>
             <input type='submit' value='get info!'>
         </form>
+        <%="Hello World at " + System.currentTimeMillis()
+                + " milli seconds "%>
 
     </div>
 </body>

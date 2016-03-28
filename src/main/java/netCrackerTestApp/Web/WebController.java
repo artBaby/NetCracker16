@@ -42,11 +42,9 @@ import java.io.IOException;
 @Controller
 public class WebController {
 
-    @RequestMapping(value = "", method = RequestMethod.GET)
-    public ModelAndView emptyPath() {
-        ModelAndView mav = new ModelAndView();
-        mav.setViewName("startPage");
-        return mav;
+    @RequestMapping("/")
+    public String index() {
+        return "startPage";
     }
 
     @RequestMapping(value = "/getTopic", method = RequestMethod.POST)
