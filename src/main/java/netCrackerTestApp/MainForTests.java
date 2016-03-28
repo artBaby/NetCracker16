@@ -13,7 +13,7 @@ public class MainForTests {
 
     public static void main(String[] arg) throws IOException {
         MongoDao mongoDao = MongoDao.getInstance();
-        List<SentimentTweet> tweetsFromDB = mongoDao.getTweetsFromDB("Japan");
+        List<SentimentTweet> tweetsFromDB = mongoDao.getTweets("Japan");
         for (SentimentTweet sentimentTweet : tweetsFromDB) {
             System.out.println("sentimentTweet = " + sentimentTweet.getTextPost() + "    "+sentimentTweet.getSentimentResult());
         }

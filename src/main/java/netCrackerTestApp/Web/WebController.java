@@ -28,8 +28,10 @@
 //}
 package netCrackerTestApp.Web;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.ServletException;
@@ -40,29 +42,17 @@ import java.io.IOException;
 @Controller
 public class WebController {
 
-    @RequestMapping
-            (value = "", method = RequestMethod.GET)
+    @RequestMapping(value = "", method = RequestMethod.GET)
     public ModelAndView emptyPath() {
         ModelAndView mav = new ModelAndView();
         mav.setViewName("startPage");
         return mav;
     }
 
-    @RequestMapping
-            (value = "/main", method = RequestMethod.GET)
-    public ModelAndView test() {
-        ModelAndView mav = new ModelAndView();
-        mav.setViewName("startPage");
-        return mav;
-    }
-
-    @RequestMapping
-            (value = "/startPage", method = RequestMethod.POST)
-    public ModelAndView request(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        ModelAndView mav = new ModelAndView();
-        String searchText = request.getParameter("searchRequestText");
-        System.out.println("searchText = " + searchText);
-        mav.setViewName("hello");
-        return mav;
+    @RequestMapping(value = "/getTopic", method = RequestMethod.POST)
+    public String getTopic(@RequestParam("topic") String topic, HttpServletRequest request, HttpServletResponse response, Model model) throws ServletException, IOException {
+        System.out.println("topic = " + topic);
+        model.addAttribute("topic",topic);
+        return "hello";
     }
 }
