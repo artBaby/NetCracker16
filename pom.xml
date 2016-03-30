@@ -74,10 +74,11 @@
 
 
         <!--Allows Object to JSON converting for Ajax-->
+
         <dependency>
             <groupId>org.codehaus.jackson</groupId>
             <artifactId>jackson-mapper-asl</artifactId>
-            <version>1.5.3</version>
+            <version>1.9.10</version>
         </dependency>
 
 

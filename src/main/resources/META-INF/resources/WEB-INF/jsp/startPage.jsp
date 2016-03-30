@@ -11,33 +11,61 @@
 <body>
     <div style="text-align:center">
 
-        <h1>TwitSense &trade;</h1>
-        <%--<form id='form' method="POST" action="getTopic">--%>
-            <p>Input your request:<br>
-                <input name="topic" type="text" size="50" id="requestText" />
-            </p>
-            <input type="button" value="get info!" onclick="checkAjax()" />
-        <%--</form>--%>
+    <h1>TwitSense &trade;</h1>
+    <p>Input your request:<br>
+        <input name="topic" type="text" size="50" id="requestText" />
+    </p>
+    <input type="button" value="get info!" onclick="checkAjax()" />
+    <p id="result_text"></p>
 
-        <p id="result_text"></p>
+</div>
+    <div style="width: 50%;">
+        <canvas id="canvas" height="450" width="600"></canvas>
     </div>
-    <script type="text/javascript">
-        function checkAjax() {
-            var inputText = $("#requestText").val();
-            console.log("inputText= "+inputText);
-            $.ajax({
-                url: '/ajaxTest',
-                type: 'POST',
-                data : "topic=" + inputText,
-                success: function (data) {
-                    console.log("result=  "+data);
-                    $('#result_text').html(data);
-                },
-                error : function (data) {
-                    alert(data.text);
+<script>
+    function checkAjax() {
+        var inputText = $("#requestText").val();
+        var values  = [];
+        var obj;
+
+        console.log("inputText= " + inputText);
+
+        $.ajax({
+            url: '/ajaxRequest',
+            type: 'POST',
+            data: "topic=" + inputText,
+
+            success: function (data) {
+                console.log("result=  " + data);
+                obj = jQuery.parseJSON( data );
+                for (var i in obj) {
+                    console.log(obj[i]);
+                    values.push(obj[i]);
                 }
-            });
-        }
-    </script>
+                //drawing Chart
+                var barChartData = {
+                    labels: ["Negative", "Somewhat negative", "Neutral", "Somewhat positive", "Positive"],
+                    datasets: [
+                        {
+                            fillColor: "rgba(220,220,220,0.8)",
+                            strokeColor: "rgba(220,220,220,0.8)",
+                            highlightFill: "rgba(220,220,220,0.75)",
+                            highlightStroke: "rgba(220,220,220,1)",
+                            data: [obj[0], obj[1], obj[2], obj[3], obj[4]]
+                        }
+                    ]
+                };
+                var ctx = document.getElementById("canvas").getContext("2d");
+                window.myBar = new Chart(ctx).Bar(barChartData, {
+                    responsive: true
+                });
+            },
+            error: function (data) {
+                console.log("result=  " + data);
+                alert(data);
+            }
+        });
+    }
+</script>
 </body>
 </html>
