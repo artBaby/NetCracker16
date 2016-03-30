@@ -61,7 +61,7 @@
                 });
             },
             error: function (data) {
-                console.log("result=  " + data);
+                console.log("result =  " + data);
                 alert(data);
             }
         });
