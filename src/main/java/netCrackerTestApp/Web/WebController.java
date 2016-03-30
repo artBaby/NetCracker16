@@ -84,7 +84,7 @@ public class WebController {
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
-        System.out.println("123 " + json);
+        System.out.println("Json: " + json);
         return json;
 
     }

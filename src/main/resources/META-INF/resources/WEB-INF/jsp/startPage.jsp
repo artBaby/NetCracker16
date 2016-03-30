@@ -42,7 +42,7 @@
                     console.log(obj[i]);
                     values.push(obj[i]);
                 }
-                //drawing Chart
+                //drawing Chart(Bar)
                 var barChartData = {
                     labels: ["Negative", "Somewhat negative", "Neutral", "Somewhat positive", "Positive"],
                     datasets: [
