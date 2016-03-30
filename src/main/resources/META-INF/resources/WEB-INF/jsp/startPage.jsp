@@ -3,21 +3,44 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link rel='stylesheet' href='/css/test.css'/>
+    <script src='${pageContext.request.contextPath}/javascript/Chart.js'></script>
+    <script src="${pageContext.request.contextPath}/javascript/jquery-1.12.2.js"></script>
+
+</head>
 
 <body>
     <div style="text-align:center">
 
         <h1>TwitSense &trade;</h1>
-        <form id='form' method="POST" action="getTopic">
+        <%--<form id='form' method="POST" action="getTopic">--%>
             <p>Input your request:<br>
-                <input name='topic' type='text' size="50">
+                <input name="topic" type="text" size="50" id="requestText">
             </p>
-            <input type='submit' value='get info!'>
-        </form>
-        <%="Hello World at " + System.currentTimeMillis()
-                + " milli seconds "%>
+            <input type="button" value="get info!" onclick="checkAjax()">
+        <%--</form>--%>
 
+        <p id="result_text"></p>
     </div>
+    <script type="text/javascript">
+        function checkAjax() {
+            var inputText = $("#requestText").val();
+            console.log(inputText);
+            $.ajax({
+                url: '/ajaxTest',
+                type: 'POST',
+                dataType: 'json',
+                data : ({
+                    text: inputText
+                }),
+                success: function (data) {
+                    var result = data.text;
+                    $('#result_text').text(result);
+                },
+                error : function (data) {
+                    alert(data);
+                }
+            });
+        }
+    </script>
 </body>
-
 </html>

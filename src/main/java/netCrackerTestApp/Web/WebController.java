@@ -27,11 +27,10 @@
 //    }
 //}
 package netCrackerTestApp.Web;
+import org.apache.taglibs.standard.tag.common.fmt.BundleSupport;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.ServletException;
@@ -52,5 +51,13 @@ public class WebController {
         System.out.println("topic = " + topic);
         model.addAttribute("topic",topic);
         return "hello";
+    }
+
+    @RequestMapping(value = "/ajaxTest", method = RequestMethod.POST)
+    public @ResponseBody String getCharNum(@RequestParam String text) {
+
+        System.out.println("this is from controller: " + text);
+        text += " some changed data";
+        return text;
     }
 }
