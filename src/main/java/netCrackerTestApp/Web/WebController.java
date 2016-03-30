@@ -28,6 +28,7 @@
 //}
 package netCrackerTestApp.Web;
 import org.apache.taglibs.standard.tag.common.fmt.BundleSupport;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -54,10 +55,8 @@ public class WebController {
     }
 
     @RequestMapping(value = "/ajaxTest", method = RequestMethod.POST)
-    public @ResponseBody String getCharNum(@RequestParam String text) {
-
-        System.out.println("this is from controller: " + text);
-        text += " some changed data";
-        return text;
+    public @ResponseBody String getCharNum(@RequestParam("topic") String topic) throws Exception {
+        System.out.println("this is from controller: " + topic);
+        return topic;
     }
 }
