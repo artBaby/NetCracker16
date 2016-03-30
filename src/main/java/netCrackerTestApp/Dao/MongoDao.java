@@ -8,12 +8,14 @@ import com.mongodb.client.MongoDatabase;
 import netCrackerTestApp.objects.Account;
 import netCrackerTestApp.objects.SentimentTweet;
 import org.bson.Document;
+import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.social.twitter.api.Tweet;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 
 public class MongoDao {
@@ -49,18 +51,42 @@ public class MongoDao {
                 .append("isRetweet", tweet.isRetweet())
                 .append("isRetweeted", tweet.isRetweeted())
                 .append("retweetCount", tweet.getRetweetCount())
+                .append("createdDate", tweet.getCreatedAt().getTime())
                 .append("sentimentTweet", sentimentTweet)
                 .append("views", 0);
         tweets.insertOne(document);
     }
 
-    public List<SentimentTweet> getTweets(String str) {
+    public List<SentimentTweet> getTweets(String str, String firstDay, String lastDay) {
         List<SentimentTweet> sentimentTweetList = new ArrayList<>();
-
         BasicDBObject basicDBObject = new BasicDBObject();
-        basicDBObject.put("textPost", java.util.regex.Pattern.compile("(" + str + ")"));
-        FindIterable<Document> documents = tweets.find(basicDBObject);
+        List<BasicDBObject> obj = new ArrayList<>();
 
+        if(firstDay.equals("") && lastDay.equals("")){
+            basicDBObject.put("textPost", Pattern.compile(str, Pattern.CASE_INSENSITIVE));
+        }
+        if(!firstDay.equals("") && !lastDay.equals("")){
+            long convertedFirstDay = new DateTime(firstDay).getMillis();
+            long convertedLastDay = new DateTime(lastDay).plusDays(1).getMillis();
+            obj.add(new BasicDBObject("textPost", Pattern.compile(str, Pattern.CASE_INSENSITIVE)));
+            obj.add(new BasicDBObject("createdDate", new BasicDBObject("$gte", convertedFirstDay).append("$lt",convertedLastDay)));
+            basicDBObject.put("$and", obj);
+        }
+        if(!firstDay.equals("") && lastDay.equals("")){
+            long convertedFirstDay = new DateTime(firstDay).getMillis();
+            obj.add(new BasicDBObject("textPost", Pattern.compile(str, Pattern.CASE_INSENSITIVE)));
+            obj.add(new BasicDBObject("createdDate", new BasicDBObject("$gte", convertedFirstDay)));
+            basicDBObject.put("$and", obj);
+        }
+
+        if(firstDay.equals("") && !lastDay.equals("")){
+            long convertedLastDay = new DateTime(lastDay).plusDays(1).getMillis();
+            obj.add(new BasicDBObject("textPost", Pattern.compile(str, Pattern.CASE_INSENSITIVE)));
+            obj.add(new BasicDBObject("createdDate", new BasicDBObject("$lt", convertedLastDay)));
+            basicDBObject.put("$and", obj);
+        }
+
+        FindIterable<Document> documents = tweets.find(basicDBObject);
         for (Document document : documents) {
             String textPost = (String) document.get("textPost");
             int sentimentResult = (int) document.get("sentimentTweet");
@@ -68,7 +94,6 @@ public class MongoDao {
             logger.info("textPost= " + textPost);
             logger.info("sentimentResult= " + sentimentResult);
         }
-
         return sentimentTweetList;
     }
 
