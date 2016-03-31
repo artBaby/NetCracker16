@@ -48,6 +48,8 @@ import java.util.Map;
 
 @Controller
 public class WebController {
+    private final MongoDao mongoDao = MongoDao.getInstance();
+    private final SentimentAnalysis sentimentAnalysis = new SentimentAnalysis();
 
     @RequestMapping("/")
     public String index() {
@@ -68,13 +70,11 @@ public class WebController {
     }
 
     @RequestMapping(value = "/ajaxRequest", method = RequestMethod.POST)
-    public @ResponseBody String getData(@RequestParam("topic") String topic) throws Exception {
-        System.out.println("this is from controller: " + topic);
+    public @ResponseBody String getData(@RequestParam("topic") String topic, @RequestParam("firstDate") String firstDate, @RequestParam("lastDate") String lastDate) throws Exception {
+        System.out.println("this is from controller: " + topic + "  " +firstDate + "  " + lastDate);
 
         //TODO: optimize perfomance
-        MongoDao mongoDao = MongoDao.getInstance();
-        SentimentAnalysis sentimentAnalysis = new SentimentAnalysis();
-        List<SentimentTweet> tweetsFromDB = mongoDao.getTweets(topic,"","2016-03-31");
+        List<SentimentTweet> tweetsFromDB = mongoDao.getTweets(topic,firstDate,lastDate);
         Map<Integer, Long> sentimentResultOnTopic = sentimentAnalysis.getSentimentResultOnTopic(tweetsFromDB);
 
         ObjectMapper mapper = new ObjectMapper();

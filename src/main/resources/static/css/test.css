@@ -1,4 +1,33 @@
 h1{
     color: blue;
     font-size: 32px;
+    font-style: italic;
+    font-weight: normal;
+}
+
+body, html {
+    background-color: white;
+    color: #2C2C2C;
+    font: normal 100% Cambria, Georgia, serif;
+
+
+}
+
+#header {
+
+}
+
+#left-column {
+
+}
+
+#center-column {
+
+}
+#right-column {
+
+}
+
+#footer {
+
 }
