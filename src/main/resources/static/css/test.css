@@ -93,11 +93,8 @@ body{
 
 @media screen and (min-width: 640px) {
     #wrapper{
-        width: 620px;
+        width: 630px;
     }
-    #content,#sidebar{
-         float: none;
-     }
 }
 
 @media screen and (min-width: 1024px) {
