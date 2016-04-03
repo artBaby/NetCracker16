@@ -5,6 +5,7 @@
     <link rel='stylesheet' href='/css/test.css'/>
     <link rel='stylesheet' href='/css/bootstrap.min.css'/>
     <link rel='stylesheet' href='/css/bootstrap-theme.min.css'/>
+    <link rel='stylesheet' href='/css/jquery-ui.css'/>
     <script src='${pageContext.request.contextPath}/javascript/Chart.js'></script>
     <script src="${pageContext.request.contextPath}/javascript/jquery-1.12.2.js"></script>
     <script src="${pageContext.request.contextPath}/javascript/jquery-ui.js"></script>
