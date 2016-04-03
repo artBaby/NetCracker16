@@ -24,7 +24,7 @@
           </tr>
           <tr><td></td><td><div id="message"></div></td></tr>
       </table>
-      <div class="chart">
+      <div class="chartContainer">
           <canvas  id="barChart" ></canvas>
       </div>
 

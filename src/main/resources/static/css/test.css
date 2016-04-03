@@ -11,7 +11,7 @@ body, html {
     font: normal 100% Cambria, Georgia, serif;
 }
 
-.chart {
+.chartContainer {
     width: 800px;
     height: 600px;
     position: absolute;
