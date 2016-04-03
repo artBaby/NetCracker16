@@ -15,7 +15,9 @@
 
 <body>
 <div id="wrapper">
-    <div id="header"><img src="../images/1.png"></div>
+    <div id="header">
+        <img src="../images/1.png">
+    </div>
     <div id="description">Sentiment analysis (also known as opinion mining) refers to the use of natural language processing, text analysis and computational linguistics to identify and extract subjective information in source materials. Sentiment analysis is widely applied to reviews and social media for a variety of applications, ranging from marketing to customer service.</div>
     <div id="content">
         <div id="sidebar">
@@ -43,15 +45,14 @@
             <div id="output">
                 <fieldset class="fieldset">
                     <ul class="nav nav-tabs">
-                        <li class="active"><a href="#home">Chart</a></li>
-                        <li><a href="#menu1">Posts</a></li>
+                        <li class="active"><a href="#chart">Chart</a></li>
+                        <li><a href="#posts">Posts</a></li>
                     </ul>
                     <div class="tab-content">
-                        <div id="home" class="tab-pane fade in active">
+                        <div id="chart" class="tab-pane fade in active">
                             <canvas id="barChart"></canvas>
                         </div>
-                        <div id="menu1" class="tab-pane fade">
-                        </div>
+                        <div id="posts" class="tab-pane fade"></div>
                     </div>
                 </fieldset>
             </div>
@@ -80,18 +81,19 @@
             $(".prev span").text(y);
         });
     });
-    function drawChartBar(obj, idCanvas) {
+
+    function drawChartBar(sentimentResultArray, countTweetsArray, idCanvas) {
 
         //drawing Chart(Bar)
         var barChartData = {
-            labels: ['Negative', 'Somewhat negative', 'Neutral', 'Somewhat positive', 'Positive'],
+            labels: sentimentResultArray,
             datasets: [
                 {
                     fillColor: 'rgba(220,220,220,0.8)',
                     strokeColor: 'rgba(220,220,220,0.8)',
                     highlightFill: 'rgba(220,220,220,0.75)',
                     highlightStroke: 'rgba(220,220,220,1)',
-                    data: [obj[0], obj[1], obj[2], obj[3], obj[4]]
+                    data: countTweetsArray
                 }
             ]
         };
@@ -101,7 +103,16 @@
             responsive: true
         });
     }
+    function showText(sentimentResultArray, textTweets) {
+        var str= '<table>';
+        for(var i = 0, k=0; i < sentimentResultArray.length, k < textTweets.length; i++, k++){
+                str = str.concat('<tr><td>'+ textTweets[k] + '</td><td>'+ sentimentResultArray[i] + '</tr>');
+                console.log('str='+ str);
+        }
+        str.concat('</table>');
+        $('#posts').html(str);
 
+    }
     function drawing() {
         $('#message').empty();
         var inputText = $('#requestText').val().trim();
@@ -110,6 +121,7 @@
 
         if(inputText === '') {
             $('#message').html('Entry data!');
+            barChart.destroy();
         }else {
             console.log('inputText= ' + inputText);
             console.log('firstDate= ' + firstDate);
@@ -121,9 +133,19 @@
                 success: function (data) {
                     console.log("result=  " + data);
                     var obj = jQuery.parseJSON(data);
+                    var sentimentResultArray = [];
+                    var countTweetsArray = [];
+                    var textTweets = [];
+                    for(var sentiment in obj){
+                        sentimentResultArray.push(obj[sentiment].sentimentResult);
+                        countTweetsArray.push(obj[sentiment].countTweets);
+                        textTweets.push(obj[sentiment].textTweet);
+                    }
                     if (barChart != undefined || barChart != null)
                             barChart.destroy();
-                    drawChartBar(obj, 'barChart');
+                    console.log('textTweets=' + textTweets);
+                    drawChartBar(sentimentResultArray, countTweetsArray, 'barChart');
+                    showText(sentimentResultArray, textTweets);
                 },
                 error: function (data) {
                     console.log('error =  ' + data);

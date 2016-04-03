@@ -1,8 +1,6 @@
 package netCrackerTestApp.objects;
 
-/**
- * Created by dasha on 23.03.16.
- */
+
 public class SentimentTweet {
     private Integer postId;
     private String userName;
