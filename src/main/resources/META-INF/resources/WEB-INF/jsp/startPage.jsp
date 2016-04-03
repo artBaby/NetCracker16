@@ -31,12 +31,12 @@
                         <div class="col-sm-3"><label>To</label><input type="text" class="form-control" id="calendarTo"></div>
                     </div>
                     <div class="form-group">
-                        <div id="message"></div>
-                    </div>
-                    <div class="form-group">
                         <div class="col-sm-12">
                             <input type="button" class="btn btn-info pull-right" value="get info!" onclick="drawing()" />
                         </div>
+                    </div>
+                    <div class="form-group">
+                        <div id="message"></div>
                     </div>
                 </form>
             </div>
@@ -57,7 +57,7 @@
             </div>
         </div>
     </div>
-    <div id="footer"></div>
+    <div id="footer"> 2016 TwitSense &trade; </div>
 </div>
 
 <script>

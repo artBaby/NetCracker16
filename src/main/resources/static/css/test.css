@@ -29,7 +29,6 @@ body{
     background: #eeeeee;
     width: 100%;
     height: auto;
-    padding: 10px 0;
     overflow-x:hidden;
     word-wrap:break-word;
     padding: 10px;
@@ -85,28 +84,51 @@ body{
 
 #footer{
     background: #eeeeee;
+    padding: 10px;
     width: 80%;
     margin: 20px 10% 0 10%;
-    padding-top: 20px;
     height: 50px;
     clear: both;
 }
 
-@media screen and (max-width: 700px) {
-    #content, #leftSidebar, #rightSidebar {
-        float: none;
-        width: 100%;
-        margin: 0;
+@media screen and (min-width: 640px) {
+    #wrapper{
+        width: 620px;
+    }
+    #content,#sidebar{
+         float: none;
+     }
+}
+
+@media screen and (min-width: 1024px) {
+    #wrapper{
+        width: 1000px;
     }
 }
 
-table{
-    margin: auto; /* Выравниваем таблицу по центру окна  */
-}
-td {
-    text-align: center; /* Выравниваем текст по центру ячейки */
+@media screen and (min-width: 1280px) {
+    #wrapper{
+        width: 1265px;
+    }
 }
 
+@media screen and (min-width: 1366px) {
+    #wrapper{
+        width: 1345px;
+    }
+}
+
+@media screen and (min-width: 1600px) {
+    #wrapper{
+        width: 1580px;
+    }
+}
+
+@media screen and (min-width: 1920px) {
+    #wrapper{
+        width: 1900px;
+    }
+}
 .fieldset {
 border: 1px solid #ccc;
 padding: 10px;
