@@ -8,8 +8,6 @@
     <script src="${pageContext.request.contextPath}/javascript/jquery-1.12.2.js"></script>
     <script src="${pageContext.request.contextPath}/javascript/jquery-ui.js"></script>
     <script src="${pageContext.request.contextPath}/javascript/jquery-ui.min.js"></script>
-
-
 </head>
 
 <body>
@@ -22,13 +20,17 @@
               <td><input id="calendarFrom" type="text" size="10"/></td>
               <td>To</td>
               <td><input id="calendarTo" type="text" size="10"/></td>
-              <td><input type="button" value="get info!" onclick="checkAjax()" /></td>
+              <td><input type="button" value="get info!" onclick="Drawing()" /></td>
           </tr>
           <tr><td></td><td><div id="message"></div></td></tr>
       </table>
-      <div ><canvas id="barChart" height="250" width="300"></canvas></div>
+      <div class="chart">
+          <canvas  id="barChart" ></canvas>
+      </div>
 
 <script>
+    var barChart;
+
     $(function(){
         $.datepicker.setDefaults(
                 $.extend($.datepicker.regional["en"])
@@ -37,7 +39,6 @@
         $("#calendarTo").datepicker({dateFormat:'yy-mm-dd'});
     });
     function drawChartBar(obj, idCanvas) {
-
         //drawing Chart(Bar)
         var barChartData = {
             labels: ['Negative', 'Somewhat negative', 'Neutral', 'Somewhat positive', 'Positive'],
@@ -51,17 +52,19 @@
                 }
             ]
         };
+
         var ctx = document.getElementById(idCanvas).getContext('2d');
-        window.myBar = new Chart(ctx).Bar(barChartData, {
+        barChart = new Chart(ctx).Bar(barChartData, {
             responsive: true
         });
     }
 
-    function checkAjax() {
+    function Drawing() {
         $('#message').empty();
         var inputText = $('#requestText').val().trim();
         var firstDate = $('#calendarFrom').val().trim();
         var lastDate = $('#calendarTo').val().trim();
+
         if(inputText === '') {
             $('#message').html('Entry data!');
         }else {
@@ -75,6 +78,8 @@
                 success: function (data) {
                     console.log("result=  " + data);
                     var obj = jQuery.parseJSON(data);
+                    if (barChart != undefined || barChart != null)
+                            barChart.destroy();
                     drawChartBar(obj, 'barChart');
                 },
                 error: function (data) {
@@ -83,7 +88,6 @@
                 }
             });
         }
-
     }
 </script>
 </body>
