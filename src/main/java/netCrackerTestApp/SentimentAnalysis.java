@@ -33,18 +33,11 @@ public class SentimentAnalysis {
         return assessmentSentiment;
     }
 
-    public Map<Integer, Long> getSentimentResultOnTopic (List<SentimentTweet> sentimentTweetList){
+    public Map<Integer, Long> getSentimentResultByTopic(List<SentimentTweet> sentimentTweetList){
         Map<Integer, Long> collect = sentimentTweetList.stream()
                 .collect(Collectors.groupingBy(SentimentTweet::getSentimentResult, Collectors.counting()));
         sentimentTweetList.stream().collect(Collectors.groupingBy(SentimentTweet::getSentimentResult));
         return collect;
     }
 
-    public Map<Integer, String>  getTweetsOnTopic (List<SentimentTweet> sentimentTweetList){
-        Map<Integer, String> listTweets = new HashMap<>();
-
-        Map<Integer, List<SentimentTweet>> collect = sentimentTweetList.stream().collect(Collectors.groupingBy(SentimentTweet::getSentimentResult));
-        collect.forEach((sentimentResult, sentimentTweets) -> listTweets.put(sentimentResult,sentimentTweets.get(0).getTextPost()));
-        return listTweets;
-    }
 }

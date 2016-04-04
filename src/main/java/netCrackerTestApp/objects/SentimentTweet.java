@@ -52,4 +52,20 @@ public class SentimentTweet {
     public void setViews(Long views) {
         this.views = views;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        SentimentTweet that = (SentimentTweet) o;
+
+        return textPost != null ? textPost.equals(that.textPost) : that.textPost == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        return textPost != null ? textPost.hashCode() : 0;
+    }
 }

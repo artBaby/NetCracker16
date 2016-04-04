@@ -29,16 +29,13 @@
 package netCrackerTestApp.Web;
 import netCrackerTestApp.Dao.MongoDao;
 import netCrackerTestApp.SentimentAnalysis;
-import netCrackerTestApp.objects.JsonTweet;
+import netCrackerTestApp.objects.JsonSentimentResult;
 import netCrackerTestApp.objects.SentimentTweet;
-import org.apache.taglibs.standard.tag.common.fmt.BundleSupport;
-import org.springframework.http.MediaType;
 import org.codehaus.jackson.JsonProcessingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -47,6 +44,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Controller
 public class WebController {
@@ -74,31 +72,28 @@ public class WebController {
     @RequestMapping(value = "/ajaxRequest", method = RequestMethod.POST)
     public @ResponseBody String getData(@RequestParam("topic") String topic, @RequestParam("firstDate") String firstDate, @RequestParam("lastDate") String lastDate) throws Exception {
         System.out.println("this is from controller: " + topic + "  " +firstDate + "  " + lastDate);
-        List<JsonTweet> jsonTweets = new ArrayList<>();
+        List<JsonSentimentResult> jsonSentimentResults = new ArrayList<>();
         List<SentimentTweet> tweetsFromDB = mongoDao.getTweets(topic,firstDate,lastDate);
-        Map<Integer, Long> sentimentResultOnTopic = sentimentAnalysis.getSentimentResultOnTopic(tweetsFromDB);
-        Map<Integer, String> tweetsOnTopic = sentimentAnalysis.getTweetsOnTopic(tweetsFromDB);
+        Map<Integer, Long> sentimentResultOnTopic = sentimentAnalysis.getSentimentResultByTopic(tweetsFromDB);
 
-        for (Integer keySentiment : sentimentResultOnTopic.keySet()) {
-            for (Integer keyTweet : tweetsOnTopic.keySet()) {
-                if(keySentiment.equals(keyTweet)){
-                    if(keyTweet.equals(0)) jsonTweets.add(new JsonTweet("Negative", sentimentResultOnTopic.get(keySentiment), tweetsOnTopic.get(keyTweet)));
-                    if(keyTweet.equals(1)) jsonTweets.add(new JsonTweet("Somewhat negative", sentimentResultOnTopic.get(keySentiment), tweetsOnTopic.get(keyTweet)));
-                    if(keyTweet.equals(2)) jsonTweets.add(new JsonTweet("Neutral", sentimentResultOnTopic.get(keySentiment), tweetsOnTopic.get(keyTweet)));
-                    if(keyTweet.equals(3)) jsonTweets.add(new JsonTweet("Somewhat positive", sentimentResultOnTopic.get(keySentiment), tweetsOnTopic.get(keyTweet)));
-                    if(keyTweet.equals(4)) jsonTweets.add(new JsonTweet("Positive", sentimentResultOnTopic.get(keySentiment), tweetsOnTopic.get(keyTweet)));
-                }
-            }
+        for (Integer sentimentResult : sentimentResultOnTopic.keySet()) {
+            List<String> tweets = tweetsFromDB.stream().filter(sentimentTweet -> sentimentTweet.getSentimentResult() == sentimentResult).distinct().limit(2).map(sentimentTweet -> sentimentTweet.getTextPost()).collect(Collectors.toList());
+            if(sentimentResult.equals(0)) jsonSentimentResults.add(new JsonSentimentResult("Negative", sentimentResultOnTopic.get(sentimentResult), tweets));
+            if(sentimentResult.equals(1)) jsonSentimentResults.add(new JsonSentimentResult("Somewhat negative", sentimentResultOnTopic.get(sentimentResult), tweets));
+            if(sentimentResult.equals(2)) jsonSentimentResults.add(new JsonSentimentResult("Neutral", sentimentResultOnTopic.get(sentimentResult), tweets));
+            if(sentimentResult.equals(3)) jsonSentimentResults.add(new JsonSentimentResult("Somewhat positive", sentimentResultOnTopic.get(sentimentResult), tweets));
+            if(sentimentResult.equals(4)) jsonSentimentResults.add(new JsonSentimentResult("Positive", sentimentResultOnTopic.get(sentimentResult), tweets));
         }
+
 
         ObjectMapper mapper = new ObjectMapper();
         String json = "";
         try {
-            json = mapper.writeValueAsString(jsonTweets);
+            json = mapper.writeValueAsString(jsonSentimentResults);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
-        System.out.println("jsonTweets: " + jsonTweets);
+        System.out.println("jsonSentimentResults: " + jsonSentimentResults);
         return json;
 
     }

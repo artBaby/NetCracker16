@@ -15,14 +15,14 @@
 
 <body>
 <div id="wrapper">
-    <div id="header">
-        <img src="../images/1.png">
+    <div id="header"><img src="../images/1.png">
+
     </div>
     <div id="description">Sentiment analysis (also known as opinion mining) refers to the use of natural language processing, text analysis and computational linguistics to identify and extract subjective information in source materials. Sentiment analysis is widely applied to reviews and social media for a variety of applications, ranging from marketing to customer service.</div>
     <div id="content">
         <div id="sidebar">
             <div id="sidebarTop">News</div>
-            <div id="sidebarBottom">Cache</div>
+            <div id="sidebarBottom">History</div>
         </div>
         <div id="main">
             <div id="inputFields">
@@ -82,7 +82,7 @@
         });
     });
 
-    function drawChartBar(sentimentResultArray, countTweetsArray, idCanvas) {
+    function drawChartBar(sentimentResultArray, numberOfTweetsArray) {
 
         //drawing Chart(Bar)
         var barChartData = {
@@ -93,21 +93,24 @@
                     strokeColor: 'rgba(220,220,220,0.8)',
                     highlightFill: 'rgba(220,220,220,0.75)',
                     highlightStroke: 'rgba(220,220,220,1)',
-                    data: countTweetsArray
+                    data: numberOfTweetsArray
                 }
             ]
         };
 
-        var ctx = document.getElementById(idCanvas).getContext('2d');
+        var ctx = document.getElementById('barChart').getContext('2d');
         barChart = new Chart(ctx).Bar(barChartData, {
             responsive: true
         });
     }
-    function showText(sentimentResultArray, textTweets) {
+
+    function showTweets(sentimentResultWithTweets) {
         var str= '<table>';
-        for(var i = 0, k=0; i < sentimentResultArray.length, k < textTweets.length; i++, k++){
-                str = str.concat('<tr><td>'+ textTweets[k] + '</td><td>'+ sentimentResultArray[i] + '</tr>');
-                console.log('str='+ str);
+        for(var k in sentimentResultWithTweets){
+            var sentimentResultTweet = sentimentResultWithTweets[k];
+            for(var i in sentimentResultTweet.tweets){
+                str= str.concat('<tr><td>' + sentimentResultTweet.sentimentResult + '</td><td>' + sentimentResultTweet.tweets[i] + '</td></tr>');
+            }
         }
         str.concat('</table>');
         $('#posts').html(str);
@@ -131,21 +134,15 @@
                 type: 'POST',
                 data: 'topic=' + inputText + "&firstDate=" + firstDate + "&lastDate=" + lastDate,
                 success: function (data) {
-                    console.log("result=  " + data);
-                    var obj = jQuery.parseJSON(data);
-                    var sentimentResultArray = [];
-                    var countTweetsArray = [];
-                    var textTweets = [];
-                    for(var sentiment in obj){
-                        sentimentResultArray.push(obj[sentiment].sentimentResult);
-                        countTweetsArray.push(obj[sentiment].countTweets);
-                        textTweets.push(obj[sentiment].textTweet);
-                    }
+                    console.log('data=' + data);
+                    var sentimentResultWithTweets = jQuery.parseJSON(data);
+                    var sentimentResults = sentimentResultWithTweets.map( sentimentResultTweet => sentimentResultTweet.sentimentResult);
+                    var numberOfTweets = sentimentResultWithTweets.map( sentimentResultTweet => sentimentResultTweet.numberOfTweets);
                     if (barChart != undefined || barChart != null)
                             barChart.destroy();
-                    console.log('textTweets=' + textTweets);
-                    drawChartBar(sentimentResultArray, countTweetsArray, 'barChart');
-                    showText(sentimentResultArray, textTweets);
+                    console.log('textTweets=' + tweets);
+                    drawChartBar(sentimentResults, numberOfTweets);
+                    showTweets(sentimentResultWithTweets);
                 },
                 error: function (data) {
                     console.log('error =  ' + data);
