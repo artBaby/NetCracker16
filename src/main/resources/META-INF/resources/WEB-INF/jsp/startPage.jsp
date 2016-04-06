@@ -1,3 +1,4 @@
+<%@ page import="java.util.List" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,7 +23,13 @@
     <div id="content">
         <div id="sidebar">
             <div id="sidebarTop">News</div>
-            <div id="sidebarBottom">History</div>
+            <div id="sidebarBottom">
+                <% List<String> topics= (List<String>) request.getAttribute("topics");
+                    for (String topic : topics) {
+                        out.println(topic + "</br>");
+                    }
+                %>
+            </div>
         </div>
         <div id="main">
             <div id="inputFields">
@@ -60,7 +67,6 @@
     </div>
     <div id="footer"> 2016 TwitSense &trade; </div>
 </div>
-
 
 <script>
     var barChart;
@@ -117,11 +123,13 @@
         $('#posts').html(str);
 
     }
+
     function drawing() {
         $('#message').empty();
         var inputText = $('#requestText').val().trim();
         var firstDate = $('#calendarFrom').val().trim();
         var lastDate = $('#calendarTo').val().trim();
+        var ipAddress = JSON.parse('${jsonIpAddress}');
 
         if(inputText === '') {
             $('#message').html('Entry data!');
@@ -133,7 +141,7 @@
             $.ajax({
                 url: '/ajaxRequest',
                 type: 'POST',
-                data: 'topic=' + inputText + "&firstDate=" + firstDate + "&lastDate=" + lastDate,
+                data: 'topic=' + inputText + "&firstDate=" + firstDate + "&lastDate=" + lastDate + "&ipAddress=" + ipAddress,
                 success: function (data) {
                     console.log('data=' + data);
                     var sentimentResultWithTweets = jQuery.parseJSON(data);

@@ -1,6 +1,8 @@
 package netCrackerTestApp.Dao;
 
 
+import com.mongodb.BasicDBObject;
+import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import netCrackerTestApp.objects.JsonSentimentResult;
 import org.bson.Document;
@@ -13,8 +15,8 @@ public class History {
     private final MongoCollection<Document> history = mongoDao.db.getCollection("history");
 
 
-    public void saveHistoryOfRequestToDB(String ipAddress, String topic, List<JsonSentimentResult> ListJsonSentimentResultWithTweets){
-        System.out.println("вошли в saveHistoryOfRequestToDB");
+    public void saveHistoryOfRequest(String ipAddress, String topic, List<JsonSentimentResult> ListJsonSentimentResultWithTweets){
+        System.out.println("saveHistoryOfRequestToDB");
 
         List<Document> listDocuments = new ArrayList<>();
         for (JsonSentimentResult jsonSentimentResultWithTweets : ListJsonSentimentResultWithTweets) {
@@ -33,7 +35,19 @@ public class History {
         history.insertOne(document);
     }
 
-    public void getHistoryOfRequestFromDB(String ipAddress) {
+    public ArrayList<String> getTopics (String ipAddress) {
+        ArrayList<String> listTopics = new ArrayList<>();
+
+        BasicDBObject basicDBObject = new BasicDBObject();
+        basicDBObject.put("ipAddress",ipAddress);
+        FindIterable<Document> documents = history.find(basicDBObject);
+        for (Document document : documents) {
+            String topic = (String) document.get("topic");
+            listTopics.add(topic);
+        }
+        return listTopics;
+
     }
+
 }
 
