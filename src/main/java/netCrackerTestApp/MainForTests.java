@@ -17,7 +17,7 @@ public class MainForTests {
     public static void main(String[] arg) throws IOException {
 
         Date date = new Date();
-        System.out.println("date.getTime() = " + new Date().getTime());
+        System.out.println("date.getTime() = " + new Date());
 
         DateTime dateTime = new DateTime("2016-03-12").plusDays(1);
         System.out.println("dateTime.getMillis()= "+dateTime.getMillis());

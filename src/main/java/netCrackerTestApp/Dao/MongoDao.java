@@ -5,7 +5,6 @@ import com.mongodb.*;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
-import com.mongodb.client.model.IndexOptions;
 import netCrackerTestApp.objects.Account;
 import netCrackerTestApp.objects.SentimentTweet;
 import org.bson.Document;
@@ -13,7 +12,6 @@ import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.social.twitter.api.Tweet;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;

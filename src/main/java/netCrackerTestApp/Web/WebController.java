@@ -1,51 +1,15 @@
-//package netCrackerTestApp.Web;
-//
-//import org.apache.log4j.Logger;
-//import org.springframework.boot.context.web.SpringBootServletInitializer;
-//import org.springframework.stereotype.Controller;
-//import org.springframework.web.bind.annotation.RequestMapping;
-//import org.springframework.web.servlet.ModelAndView;
-//
-//import javax.servlet.http.HttpServletRequest;
-//
-//@Controller
-////@EnableAutoConfiguration
-//public class WebController extends SpringBootServletInitializer {
-//
-////    @RequestMapping(value = "index")
-//////    @ResponseBody
-////    public String home() {
-////        return "index";
-////    }
-//
-//    static Logger logger = Logger.getLogger(WebController.class);
-//
-//    @RequestMapping("/lol")
-//    public ModelAndView defaultAdminRequest(final HttpServletRequest request) {
-//        logger.info("lol request");
-//        return  new ModelAndView("jsp_test");
-//    }
-//}
+
 package netCrackerTestApp.Web;
 import netCrackerTestApp.Dao.History;
 import netCrackerTestApp.Dao.MongoDao;
 import netCrackerTestApp.SentimentAnalysis;
-import netCrackerTestApp.objects.JsonHistory;
 import netCrackerTestApp.objects.JsonSentimentResult;
 import netCrackerTestApp.objects.SentimentTweet;
 import org.codehaus.jackson.JsonProcessingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
-
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
