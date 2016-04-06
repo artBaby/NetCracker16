@@ -16,11 +16,11 @@ public class MainForTests {
 
     public static void main(String[] arg) throws IOException {
 
-//        Date date = new Date();
-//        System.out.println("date.getTime() = " + date.getTime());
-//
-//        DateTime dateTime = new DateTime("2016-03-12").plusDays(1);
-//        System.out.println("dateTime.getMillis()= "+dateTime.getMillis());
-//        System.out.println("dateTime = " + dateTime.getYear() +"  "+ dateTime.getMonthOfYear()+"  " +dateTime.getDayOfMonth() +"  "+dateTime.getHourOfDay());
+        Date date = new Date();
+        System.out.println("date.getTime() = " + new Date().getTime());
+
+        DateTime dateTime = new DateTime("2016-03-12").plusDays(1);
+        System.out.println("dateTime.getMillis()= "+dateTime.getMillis());
+        System.out.println("dateTime = " + dateTime.getYear() +"  "+ dateTime.getMonthOfYear()+"  " +dateTime.getDayOfMonth() +"  "+dateTime.getHourOfDay());
     }
 }

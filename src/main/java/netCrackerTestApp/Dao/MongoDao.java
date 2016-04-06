@@ -5,6 +5,7 @@ import com.mongodb.*;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.IndexOptions;
 import netCrackerTestApp.objects.Account;
 import netCrackerTestApp.objects.SentimentTweet;
 import org.bson.Document;
@@ -22,7 +23,7 @@ public class MongoDao {
     private final static  MongoDao mongoDao = new MongoDao();
     private final Logger logger = LoggerFactory.getLogger(MongoDao.class);
 
-    private final MongoDatabase db = new MongoClient("localhost").getDatabase("db");
+    public final MongoDatabase db = new MongoClient("localhost").getDatabase("db");
     private final MongoCollection<Document> accounts = db.getCollection("accounts");
     private final MongoCollection<Document> tweets = db.getCollection("tweets");
 
@@ -45,6 +46,7 @@ public class MongoDao {
     }
 
     public void saveTweet(Tweet tweet, int sentimentTweet) {
+
         Document document = new Document("_id", tweet.getId())
                 .append("userName", tweet.getUser().getName())
                 .append("textPost", tweet.getText())

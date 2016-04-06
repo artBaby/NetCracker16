@@ -3,6 +3,7 @@ package netCrackerTestApp.objects;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.codehaus.jackson.annotate.JsonTypeInfo;
 
 import java.util.List;
 

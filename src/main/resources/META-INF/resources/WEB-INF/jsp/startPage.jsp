@@ -61,6 +61,7 @@
     <div id="footer"> 2016 TwitSense &trade; </div>
 </div>
 
+
 <script>
     var barChart;
 
@@ -140,7 +141,6 @@
                     var numberOfTweets = sentimentResultWithTweets.map( sentimentResultTweet => sentimentResultTweet.numberOfTweets);
                     if (barChart != undefined || barChart != null)
                             barChart.destroy();
-                    console.log('textTweets=' + tweets);
                     drawChartBar(sentimentResults, numberOfTweets);
                     showTweets(sentimentResultWithTweets);
                 },
