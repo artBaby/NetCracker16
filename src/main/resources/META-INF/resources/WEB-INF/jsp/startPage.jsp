@@ -16,13 +16,17 @@
 
 <body>
 <div id="wrapper">
-    <div id="header"><img src="../images/1.png">
+    <div id="header">
+
+        <img src="../images/squirrel.png"  width="68" height="85" hspace="15">
 
     </div>
     <div id="description">Sentiment analysis (also known as opinion mining) refers to the use of natural language processing, text analysis and computational linguistics to identify and extract subjective information in source materials. Sentiment analysis is widely applied to reviews and social media for a variety of applications, ranging from marketing to customer service.</div>
     <div id="content">
         <div id="sidebar">
-            <div id="sidebarTop">News</div>
+            <div id="sidebarTop"> <a class="twitter-timeline" data-dnt="true" href="https://twitter.com/Omi_support" data-widget-id="718071517645512705">Tweets by @Omi_support</a>
+                <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+            </div>
             <div id="sidebarBottom">
                 <% List<String> topics= (List<String>) request.getAttribute("topics");
                     for (String topic : topics) {
@@ -104,7 +108,6 @@
                 }
             ]
         };
-
         var ctx = document.getElementById('barChart').getContext('2d');
         barChart = new Chart(ctx).Bar(barChartData, {
             responsive: true

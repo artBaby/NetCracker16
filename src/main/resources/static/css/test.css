@@ -17,7 +17,7 @@ body{
 #header{
     background: #a0eeb5;
     width: 100%;
-    height: 100px;
+    height: 95px;
 }
 #header img{
     float: left;
@@ -49,8 +49,8 @@ body{
 }
     #sidebarTop{
         background: #eeeeee;
-        width: 200px;
-        height: 320px;
+        width: 250px;
+        height: 455px;
         overflow-x:hidden;
         word-wrap:break-word;
     }
@@ -58,8 +58,8 @@ body{
     #sidebarBottom{
         margin-top: 20px;
         background: #eeeeee;
-        width: 200px;
-        height: 320px;
+        width: 250px;
+        height: 250px;
         overflow-x:hidden;
         word-wrap:break-word;
     }
