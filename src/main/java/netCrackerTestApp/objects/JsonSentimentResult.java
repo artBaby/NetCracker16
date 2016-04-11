@@ -1,9 +1,7 @@
 package netCrackerTestApp.objects;
 
-
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import java.util.List;
 
 public class JsonSentimentResult {

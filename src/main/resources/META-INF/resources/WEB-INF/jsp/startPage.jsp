@@ -47,7 +47,7 @@
                         <%
                             List<JsonHistory> listTopicsWithDates = (List<JsonHistory>) request.getAttribute("listTopicsWithDates");
                             for (JsonHistory history : listTopicsWithDates) {
-                                out.println("<tr><td><a style=\"text-decoration: none; color: black;\" href=\"#\" onclick=\"getLinkValue(this); return false\">" + history.getTopic() + " - " + history.getCreatedDate() +"</a></td></tr>");
+                                out.println("<tr><td><a style=\"text-decoration: none; color: black;\" href=\"#\" onclick=\"getTopicAndDateByLink(this); return false\">" + history.getTopic() + " - " + history.getCreatedDate() +"</a></td></tr>");
                             }
                         %>
                     </table>
@@ -94,6 +94,7 @@
 
 <script>
     var barChart;
+    var ipAddress = jQuery.parseJSON('${jsonIpAddress}');
 
     $(function(){
         $.datepicker.setDefaults(
@@ -115,9 +116,29 @@
 
     });
 
-    function getLinkValue(value) {
-        var linkValue = value.innerHTML;
-        console.log('linkValue= ' + linkValue);
+    function getTopicAndDateByLink(value) {
+        var topicAndDate = value.innerHTML;
+        console.log('topicAndDate= ' + topicAndDate);
+        $.ajax({
+            url: '/getSentimentResultByTopicAndDate',
+            type: 'POST',
+            data: 'topicAndDate=' + topicAndDate + "&ipAddress=" + ipAddress,
+            success: function (data) {
+                console.log('data =  ' + data);
+                var sentimentResultWithTweets = jQuery.parseJSON(data);
+                var sentimentResults = sentimentResultWithTweets.map( sentimentResultTweet => sentimentResultTweet.sentimentResult);
+                var numberOfTweets = sentimentResultWithTweets.map( sentimentResultTweet => sentimentResultTweet.numberOfTweets);
+                if (barChart != undefined || barChart != null)
+                    barChart.destroy();
+                drawChartBar(sentimentResults, numberOfTweets);
+                showTweets(sentimentResultWithTweets);
+            },
+            error: function (data) {
+                console.log('getTopicAndDateByLink Error =  ' + data);
+                alert(data);
+            }
+        });
+
     }
 
     function drawChartBar(sentimentResultArray, numberOfTweetsArray) {
@@ -160,7 +181,6 @@
         var inputText = $('#requestText').val().trim();
         var firstDate = $('#calendarFrom').val().trim();
         var lastDate = $('#calendarTo').val().trim();
-        var ipAddress = jQuery.parseJSON('${jsonIpAddress}');
 
         if(inputText === '') {
             $('#message').html('Entry data!');
@@ -194,7 +214,6 @@
     }
 
     function getHistory() {
-        var ipAddress = jQuery.parseJSON('${jsonIpAddress}');
         console.log('ip= ' + ipAddress);
         $.ajax({
             url: '/ajaxGetHistory',
@@ -206,7 +225,7 @@
                 var str= '<table class="table table-hover">';
                 for(var i in listTopicsWithDates){
                     var topicWithDate = listTopicsWithDates[i];
-                        str= str.concat('<tr><td><a style="text-decoration: none; color: black;" href="#" onclick="getLinkValue(this); return false">' + topicWithDate.topic + ' - ' + topicWithDate.createdDate + '</a></td></tr>');
+                        str= str.concat('<tr><td><a style="text-decoration: none; color: black;" href="#" onclick="getTopicAndDateByLink(this); return false">' + topicWithDate.topic + ' - ' + topicWithDate.createdDate + '</a></td></tr>');
                 }
                 str.concat('</table>');
                 $('#history').html(str);
@@ -220,7 +239,6 @@
     }
 
     function deleteRequestHistory() {
-        var ipAddress = jQuery.parseJSON('${jsonIpAddress}');
         console.log('ip= ' + ipAddress);
         $.ajax({
             url: '/delete',

@@ -17,23 +17,6 @@ public class MainForTests {
     public static void main(String[] arg) throws IOException {
 
         History history = new History();
-        history.deleteHistory("0:0:0:0:0:0:0:1");
-//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy.MM.dd 'at' HH:mm:ss.SSS");
-//        Date date1 = new Date();
-//        System.out.println("date1 = " + date1);
-//        System.out.println("date1Mil = " + date1.getTime());
-//        String format = simpleDateFormat.format(date1.getTime());
-//        System.out.println("format= " + format);
-//
-//        String expectedPattern = "yyyy.MM.dd 'at' HH:mm:ss.SSS";
-//        SimpleDateFormat formatter = new SimpleDateFormat(expectedPattern);
-//        try {
-//            Date date2 = formatter.parse(format);
-//            System.out.println("date2 = " + date2);
-//            System.out.println("date2Mil = " + date2.getTime());
-//        } catch (ParseException e) {
-//            e.printStackTrace();
-//        }
-
+        history.getSentimentResultByTopicAndDate("0:0:0:0:0:0:0:1","sd", 1460386968930L);
     }
 }
