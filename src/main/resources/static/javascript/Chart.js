@@ -338,17 +338,17 @@
 		getDecimalPlaces = helpers.getDecimalPlaces = function(num){
 			if (num%1!==0 && isNumber(num)){
 				var s = num.toString();
-				if(s.indexOf("e-") < 0){
-					// no exponent, e.g. 0.01
+				if(s.indexOf("event-") < 0){
+					// no exponent, event.g. 0.01
 					return s.split(".")[1].length;
 				}
 				else if(s.indexOf(".") < 0) {
-					// no decimal point, e.g. 1e-9
-					return parseInt(s.split("e-")[1]);
+					// no decimal point, event.g. 1e-9
+					return parseInt(s.split("event-")[1]);
 				}
 				else {
-					// exponent and decimal point, e.g. 1.23e-9
-					var parts = s.split(".")[1].split("e-");
+					// exponent and decimal point, event.g. 1.23e-9
+					var parts = s.split(".")[1].split("event-");
 					return parts[0].length + parseInt(parts[1]);
 				}
 			}
@@ -785,14 +785,14 @@
 				canvas = evt.currentTarget || evt.srcElement,
 				boundingRect = canvas.getBoundingClientRect();
 
-			if (e.touches){
-				mouseX = e.touches[0].clientX - boundingRect.left;
-				mouseY = e.touches[0].clientY - boundingRect.top;
+			if (event.touches){
+				mouseX = event.touches[0].clientX - boundingRect.left;
+				mouseY = event.touches[0].clientY - boundingRect.top;
 
 			}
 			else{
-				mouseX = e.clientX - boundingRect.left;
-				mouseY = e.clientY - boundingRect.top;
+				mouseX = event.clientX - boundingRect.left;
+				mouseY = event.clientY - boundingRect.top;
 			}
 
 			return {
@@ -1164,7 +1164,7 @@
 			//Assign any potential default values of the new chart type
 
 			//If none are defined, we'll use a clone of the chart type this is being extended from.
-			//I.e. if we extend a line chart, we'll use the defaults from the line chart if our new chart
+			//I.event. if we extend a line chart, we'll use the defaults from the line chart if our new chart
 			//doesn't define some defaults of their own.
 
 			var baseDefaults = (Chart.defaults[parent.prototype.name]) ? clone(Chart.defaults[parent.prototype.name]) : {};
@@ -2410,7 +2410,7 @@
 		},
 		getBarsAtEvent : function(e){
 			var barsArray = [],
-				eventPosition = helpers.getRelativePosition(e),
+				eventPosition = helpers.getRelativePosition(event),
 				datasetIterator = function(dataset){
 					barsArray.push(dataset.bars[barIndex]);
 				},
@@ -2639,7 +2639,7 @@
 		getSegmentsAtEvent : function(e){
 			var segmentsArray = [];
 
-			var location = helpers.getRelativePosition(e);
+			var location = helpers.getRelativePosition(event);
 
 			helpers.each(this.segments,function(segment){
 				if (segment.inRange(location.x,location.y)) segmentsArray.push(segment);
@@ -2905,7 +2905,7 @@
 		},
 		getPointsAtEvent : function(e){
 			var pointsArray = [],
-				eventPosition = helpers.getRelativePosition(e);
+				eventPosition = helpers.getRelativePosition(event);
 			helpers.each(this.datasets,function(dataset){
 				helpers.each(dataset.points,function(point){
 					if (point.inRange(eventPosition.x,eventPosition.y)) pointsArray.push(point);
@@ -3255,7 +3255,7 @@
 		getSegmentsAtEvent : function(e){
 			var segmentsArray = [];
 
-			var location = helpers.getRelativePosition(e);
+			var location = helpers.getRelativePosition(event);
 
 			helpers.each(this.segments,function(segment){
 				if (segment.inRange(location.x,location.y)) segmentsArray.push(segment);

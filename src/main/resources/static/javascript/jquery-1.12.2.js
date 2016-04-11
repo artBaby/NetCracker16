@@ -20,7 +20,7 @@
 		// For environments that do not have a `window` with a `document`
 		// (such as Node.js), expose a factory as module.exports.
 		// This accentuates the need for the creation of a real `window`.
-		// e.g. var jQuery = require("jquery")(window);
+		// event.g. var jQuery = require("jquery")(window);
 		// See ticket #14549 for more info.
 		module.exports = global.document ?
 			factory( global, true ) :
@@ -440,7 +440,7 @@ jQuery.extend( {
 		}
 
 		// Support: IE<9
-		// Workaround casting of .length to NaN on otherwise arraylike objects (e.g., NodeLists)
+		// Workaround casting of .length to NaN on otherwise arraylike objects (event.g., NodeLists)
 		if ( len !== len ) {
 			while ( second[ j ] !== undefined ) {
 				first[ i++ ] = second[ j++ ];
@@ -2028,7 +2028,7 @@ Expr = Sizzle.selectors = {
 				elem.type === "text" &&
 
 				// Support: IE<8
-				// New HTML5 attribute values (e.g., "search") appear with elem.type === "text"
+				// New HTML5 attribute values (event.g., "search") appear with elem.type === "text"
 				( (attr = elem.getAttribute("type")) == null || attr.toLowerCase() === "text" );
 		},
 
@@ -2484,7 +2484,7 @@ function matcherFromGroupMatchers( elementMatchers, setMatchers ) {
 			matchedCount += i;
 
 			// Apply set filters to unmatched elements
-			// NOTE: This can be skipped if there are no unmatched elements (i.e., `matchedCount`
+			// NOTE: This can be skipped if there are no unmatched elements (i.event., `matchedCount`
 			// equals `i`), unless we didn't visit _any_ elements in the above loop because we have
 			// no element matchers and no seed.
 			// Incrementing an initially-string "0" `i` allows `i` to remain a string only in that
@@ -4874,7 +4874,7 @@ jQuery.event = {
 				// Discard the second event of a jQuery.event.trigger() and
 				// when an event is called after a page has unloaded
 				return typeof jQuery !== "undefined" &&
-					( !e || jQuery.event.triggered !== e.type ) ?
+					( !event || jQuery.event.triggered !== event.type ) ?
 					jQuery.event.dispatch.apply( eventHandle.elem, arguments ) :
 					undefined;
 			};
@@ -5108,7 +5108,7 @@ jQuery.event = {
 				tmp = cur;
 			}
 
-			// Only add window if we got to document (e.g., not plain obj or detached DOM)
+			// Only add window if we got to document (event.g., not plain obj or detached DOM)
 			if ( tmp === ( elem.ownerDocument || document ) ) {
 				eventPath.push( tmp.defaultView || tmp.parentWindow || window );
 			}
@@ -5481,9 +5481,9 @@ jQuery.event = {
 			}
 		);
 
-		jQuery.event.trigger( e, null, elem );
+		jQuery.event.trigger( event, null, elem );
 
-		if ( e.isDefaultPrevented() ) {
+		if ( event.isDefaultPrevented() ) {
 			event.preventDefault();
 		}
 	}
@@ -5564,18 +5564,18 @@ jQuery.Event.prototype = {
 		var e = this.originalEvent;
 
 		this.isDefaultPrevented = returnTrue;
-		if ( !e ) {
+		if ( !event ) {
 			return;
 		}
 
 		// If preventDefault exists, run it on the original event
-		if ( e.preventDefault ) {
-			e.preventDefault();
+		if ( event.preventDefault ) {
+			event.preventDefault();
 
 		// Support: IE
 		// Otherwise set the returnValue property of the original event to false
 		} else {
-			e.returnValue = false;
+			event.returnValue = false;
 		}
 	},
 	stopPropagation: function() {
@@ -5583,26 +5583,26 @@ jQuery.Event.prototype = {
 
 		this.isPropagationStopped = returnTrue;
 
-		if ( !e || this.isSimulated ) {
+		if ( !event || this.isSimulated ) {
 			return;
 		}
 
 		// If stopPropagation exists, run it on the original event
-		if ( e.stopPropagation ) {
-			e.stopPropagation();
+		if ( event.stopPropagation ) {
+			event.stopPropagation();
 		}
 
 		// Support: IE
 		// Set the cancelBubble property of the original event to true
-		e.cancelBubble = true;
+		event.cancelBubble = true;
 	},
 	stopImmediatePropagation: function() {
 		var e = this.originalEvent;
 
 		this.isImmediatePropagationStopped = returnTrue;
 
-		if ( e && e.stopImmediatePropagation ) {
-			e.stopImmediatePropagation();
+		if ( event && event.stopImmediatePropagation ) {
+			event.stopImmediatePropagation();
 		}
 
 		this.stopPropagation();
@@ -5660,7 +5660,7 @@ if ( !support.submit ) {
 			jQuery.event.add( this, "click._submit keypress._submit", function( e ) {
 
 				// Node name check avoids a VML-related crash in IE (#9807)
-				var elem = e.target,
+				var elem = event.target,
 					form = jQuery.nodeName( elem, "input" ) || jQuery.nodeName( elem, "button" ) ?
 
 						// Support: IE <=8
@@ -5737,7 +5737,7 @@ if ( !support.change ) {
 
 			// Delegated event; lazy-add a change handler on descendant inputs
 			jQuery.event.add( this, "beforeactivate._change", function( e ) {
-				var elem = e.target;
+				var elem = event.target;
 
 				if ( rformElems.test( elem.nodeName ) && !jQuery._data( elem, "change" ) ) {
 					jQuery.event.add( elem, "change._change", function( event ) {
@@ -5952,8 +5952,8 @@ function fixCloneNodeIssues( src, dest ) {
 	if ( !support.noCloneEvent && dest[ jQuery.expando ] ) {
 		data = jQuery._data( dest );
 
-		for ( e in data.events ) {
-			jQuery.removeEvent( dest, e, data.handle );
+		for ( event in data.events ) {
+			jQuery.removeEvent( dest, event, data.handle );
 		}
 
 		// Event data gets referenced instead of copied if the expando gets copied too
@@ -6938,7 +6938,7 @@ function setPositiveNumber( elem, value, subtract ) {
 	var matches = rnumsplit.exec( value );
 	return matches ?
 
-		// Guard against undefined "subtract", e.g., when used as in cssHooks
+		// Guard against undefined "subtract", event.g., when used as in cssHooks
 		Math.max( 0, matches[ 1 ] - ( subtract || 0 ) ) + ( matches[ 2 ] || "px" ) :
 		value;
 }
@@ -9348,7 +9348,7 @@ function ajaxConvert( s, response, jqXHR, isSuccess ) {
 						} catch ( e ) {
 							return {
 								state: "parsererror",
-								error: conv ? e : "No conversion from " + prev + " to " + current
+								error: conv ? event : "No conversion from " + prev + " to " + current
 							};
 						}
 					}
@@ -9752,11 +9752,11 @@ jQuery.extend( {
 
 				// Propagate exception as error if not done
 				if ( state < 2 ) {
-					done( -1, e );
+					done( -1, event );
 
 				// Simply rethrow otherwise
 				} else {
-					throw e;
+					throw event;
 				}
 			}
 		}

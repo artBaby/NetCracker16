@@ -6,9 +6,7 @@ import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import netCrackerTestApp.objects.JsonSentimentResult;
 import org.bson.Document;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 public class History {
     private final MongoDao mongoDao = MongoDao.getInstance();
@@ -35,17 +33,18 @@ public class History {
         history.insertOne(document);
     }
 
-    public ArrayList<String> getTopics (String ipAddress) {
-        ArrayList<String> listTopics = new ArrayList<>();
-
+    public HashMap<Date, String> getTopicsAndDate(String ipAddress) {
+        HashMap<Date, String> listTopicsWithDate = new LinkedHashMap<>();
         BasicDBObject basicDBObject = new BasicDBObject();
         basicDBObject.put("ipAddress",ipAddress);
-        FindIterable<Document> documents = history.find(basicDBObject);
+        FindIterable<Document> documents = history.find(basicDBObject).sort(new BasicDBObject("createdAt",1));
         for (Document document : documents) {
             String topic = (String) document.get("topic");
-            listTopics.add(topic);
+            Date createdAt = (Date) document.get("createdAt");
+            System.out.println("createdAt = " +  createdAt.toString());
+            listTopicsWithDate.put(createdAt,topic);
         }
-        return listTopics;
+        return listTopicsWithDate;
 
     }
 

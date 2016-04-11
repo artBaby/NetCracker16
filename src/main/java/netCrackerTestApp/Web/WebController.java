@@ -12,9 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Controller
@@ -26,7 +24,7 @@ public class WebController {
     @RequestMapping("/")
     public String index(HttpServletRequest request, Model model) {
         String ipAddress  = request.getRemoteAddr(); //get client Ip Address
-        ArrayList<String> topics = history.getTopics(ipAddress);
+        HashMap<Date, String> listTopicsWithDate = history.getTopicsAndDate(ipAddress);
 
         ObjectMapper mapper = new ObjectMapper();
         String jsonIpAddress = "";
@@ -37,7 +35,7 @@ public class WebController {
         }
 
         model.addAttribute("jsonIpAddress", jsonIpAddress);
-        model.addAttribute("topics", topics);
+        model.addAttribute("listTopicsWithDate", listTopicsWithDate);
         return "startPage";
     }
 

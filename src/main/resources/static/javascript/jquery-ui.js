@@ -153,7 +153,7 @@ $.widget = function( name, base, prototype ) {
 	constructor.prototype = $.widget.extend( basePrototype, {
 
 		// TODO: remove support for widgetEventPrefix
-		// always use the name + a colon as the prefix, e.g., draggable:start
+		// always use the name + a colon as the prefix, event.g., draggable:start
 		// don't prefix for widgets that aren't DOM-based
 		widgetEventPrefix: existingConstructor ? ( basePrototype.widgetEventPrefix || name ) : name
 	}, proxiedPrototype, {
@@ -390,7 +390,7 @@ $.Widget.prototype = {
 
 		if ( typeof key === "string" ) {
 
-			// Handle nested keys, e.g., "foo.bar" => { foo: { bar: ___ } }
+			// Handle nested keys, event.g., "foo.bar" => { foo: { bar: ___ } }
 			options = {};
 			parts = key.split( "." );
 			key = parts.shift();
@@ -2654,7 +2654,7 @@ $.fn.extend( {
 
 		if ( $.fx.off || !effectMethod ) {
 
-			// Delegate to the original method (e.g., .show()) if possible
+			// Delegate to the original method (event.g., .show()) if possible
 			if ( mode ) {
 				return this[ mode ]( args.duration, complete );
 			} else {
@@ -4283,7 +4283,7 @@ var widgetsAccordion = $.widget( "ui.accordion", {
 		heightStyle: "auto",
 		icons: {
 			activeHeader: "ui-icon-triangle-1-s",
-			header: "ui-icon-triangle-1-e"
+			header: "ui-icon-triangle-1-event"
 		},
 
 		// Callbacks
@@ -4897,7 +4897,7 @@ var widgetsMenu = $.widget( "ui.menu", {
 	delay: 300,
 	options: {
 		icons: {
-			submenu: "ui-icon-caret-1-e"
+			submenu: "ui-icon-caret-1-event"
 		},
 		items: "> *",
 		menus: "ul",
@@ -6458,7 +6458,7 @@ $.widget( "ui.checkboxradio", [ $.ui.formResetMixin, {
 
 		// We read the type here, because it makes more sense to throw a element type error first,
 		// rather then the error for lack of a label. Often if its the wrong type, it
-		// won't have a label (e.g. calling on a div, btn, etc)
+		// won't have a label (event.g. calling on a div, btn, etc)
 		this._readType();
 
 		labels = this.element.labels();
@@ -7140,7 +7140,7 @@ function Datepicker() {
 		showOptions: {}, // Options for enhanced animations
 		defaultDate: null, // Used when field is blank: actual date,
 			// +/-number for offset from today, null for today
-		appendText: "", // Display text following the input box, e.g. showing the format
+		appendText: "", // Display text following the input box, event.g. showing the format
 		buttonText: "...", // Text for trigger button
 		buttonImage: "", // URL for trigger button image
 		buttonImageOnly: false, // True if the image appears alone, false if it appears on a button
@@ -7166,7 +7166,7 @@ function Datepicker() {
 		duration: "fast", // Duration of display/closure
 		beforeShowDay: null, // Function that takes a date and returns an array with
 			// [0] = true if selectable, false if not, [1] = custom CSS class name(s) or "",
-			// [2] = cell title (optional), e.g. $.datepicker.noWeekends
+			// [2] = cell title (optional), event.g. $.datepicker.noWeekends
 		beforeShow: null, // Function that takes an input field and
 			// returns a set of custom settings for the date picker
 		onSelect: null, // Define a callback function when a date is selected
@@ -8738,8 +8738,8 @@ $.extend( Datepicker.prototype, {
 
 		prev = ( this._canAdjustMonth( inst, -1, drawYear, drawMonth ) ?
 			"<a class='ui-datepicker-prev ui-corner-all' data-handler='prev' data-event='click'" +
-			" title='" + prevText + "'><span class='ui-icon ui-icon-circle-triangle-" + ( isRTL ? "e" : "w" ) + "'>" + prevText + "</span></a>" :
-			( hideIfNoPrevNext ? "" : "<a class='ui-datepicker-prev ui-corner-all ui-state-disabled' title='" + prevText + "'><span class='ui-icon ui-icon-circle-triangle-" + ( isRTL ? "e" : "w" ) + "'>" + prevText + "</span></a>" ) );
+			" title='" + prevText + "'><span class='ui-icon ui-icon-circle-triangle-" + ( isRTL ? "event" : "w" ) + "'>" + prevText + "</span></a>" :
+			( hideIfNoPrevNext ? "" : "<a class='ui-datepicker-prev ui-corner-all ui-state-disabled' title='" + prevText + "'><span class='ui-icon ui-icon-circle-triangle-" + ( isRTL ? "event" : "w" ) + "'>" + prevText + "</span></a>" ) );
 
 		nextText = this._get( inst, "nextText" );
 		nextText = ( !navigationAsDateFormat ? nextText : this.formatDate( nextText,
@@ -8748,8 +8748,8 @@ $.extend( Datepicker.prototype, {
 
 		next = ( this._canAdjustMonth( inst, +1, drawYear, drawMonth ) ?
 			"<a class='ui-datepicker-next ui-corner-all' data-handler='next' data-event='click'" +
-			" title='" + nextText + "'><span class='ui-icon ui-icon-circle-triangle-" + ( isRTL ? "w" : "e" ) + "'>" + nextText + "</span></a>" :
-			( hideIfNoPrevNext ? "" : "<a class='ui-datepicker-next ui-corner-all ui-state-disabled' title='" + nextText + "'><span class='ui-icon ui-icon-circle-triangle-" + ( isRTL ? "w" : "e" ) + "'>" + nextText + "</span></a>" ) );
+			" title='" + nextText + "'><span class='ui-icon ui-icon-circle-triangle-" + ( isRTL ? "w" : "event" ) + "'>" + nextText + "</span></a>" :
+			( hideIfNoPrevNext ? "" : "<a class='ui-datepicker-next ui-corner-all ui-state-disabled' title='" + nextText + "'><span class='ui-icon ui-icon-circle-triangle-" + ( isRTL ? "w" : "event" ) + "'>" + nextText + "</span></a>" ) );
 
 		currentText = this._get( inst, "currentText" );
 		gotoDate = ( this._get( inst, "gotoCurrent" ) && inst.currentDay ? currentDate : today );
@@ -10550,7 +10550,7 @@ $.widget( "ui.resizable", $.ui.mouse, {
 		containment: false,
 		ghost: false,
 		grid: false,
-		handles: "e,s,se",
+		handles: "event,s,se",
 		helper: false,
 		maxHeight: null,
 		maxWidth: null,
@@ -10660,9 +10660,9 @@ $.widget( "ui.resizable", $.ui.mouse, {
 
 		this.handles = o.handles ||
 			( !$( ".ui-resizable-handle", this.element ).length ?
-				"e,s,se" : {
+				"event,s,se" : {
 					n: ".ui-resizable-n",
-					e: ".ui-resizable-e",
+					e: ".ui-resizable-event",
 					s: ".ui-resizable-s",
 					w: ".ui-resizable-w",
 					se: ".ui-resizable-se",
@@ -10675,7 +10675,7 @@ $.widget( "ui.resizable", $.ui.mouse, {
 		if ( this.handles.constructor === String ) {
 
 			if ( this.handles === "all" ) {
-				this.handles = "n,e,s,w,se,sw,ne,nw";
+				this.handles = "n,event,s,w,se,sw,ne,nw";
 			}
 
 			n = this.handles.split( "," );
@@ -11221,7 +11221,7 @@ $.widget( "ui.resizable", $.ui.mouse, {
 		},
 		se: function( event, dx, dy ) {
 			return $.extend( this._change.s.apply( this, arguments ),
-				this._change.e.apply( this, [ event, dx, dy ] ) );
+				this._change.event.apply( this, [ event, dx, dy ] ) );
 		},
 		sw: function( event, dx, dy ) {
 			return $.extend( this._change.s.apply( this, arguments ),
@@ -11229,7 +11229,7 @@ $.widget( "ui.resizable", $.ui.mouse, {
 		},
 		ne: function( event, dx, dy ) {
 			return $.extend( this._change.n.apply( this, arguments ),
-				this._change.e.apply( this, [ event, dx, dy ] ) );
+				this._change.event.apply( this, [ event, dx, dy ] ) );
 		},
 		nw: function( event, dx, dy ) {
 			return $.extend( this._change.n.apply( this, arguments ),
@@ -12208,7 +12208,7 @@ $.widget( "ui.dialog", {
 			position = this.uiDialog.css( "position" ),
 			resizeHandles = typeof handles === "string" ?
 				handles :
-				"n,e,s,w,se,sw,ne,nw";
+				"n,event,s,w,se,sw,ne,nw";
 
 		function filteredUi( ui ) {
 			return {

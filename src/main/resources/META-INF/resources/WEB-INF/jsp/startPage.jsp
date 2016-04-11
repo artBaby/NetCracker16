@@ -1,4 +1,7 @@
 <%@ page import="java.util.List" %>
+<%@ page import="java.util.Date" %>
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="java.util.HashMap" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,14 +28,33 @@
     <div id="content">
         <div id="sidebar">
             <div id="sidebarTop"> <a class="twitter-timeline" data-dnt="true" href="https://twitter.com/Omi_support" data-widget-id="718071517645512705">Tweets by @Omi_support</a>
-                <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+                <script>
+                    !function(d,s,id){
+                        var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';
+                        if(!d.getElementById(id)){
+                            js=d.createElement(s);
+                            js.id=id;
+                            js.src=p+"://platform.twitter.com/widgets.js";
+                            fjs.parentNode.insertBefore(js,fjs);
+                        }
+                    }
+                    (document,"script","twitter-wjs");
+                </script>
             </div>
             <div id="sidebarBottom">
-                <% List<String> topics= (List<String>) request.getAttribute("topics");
-                    for (String topic : topics) {
-                        out.println(topic + "</br>");
-                    }
-                %>
+                <h3>History</h3>
+                <div id="history">
+                    <table class="table table-hover">
+                        <%
+                            HashMap<Date,String> listTopicsWithDate = (HashMap<Date,String>) request.getAttribute("listTopicsWithDate");
+                            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy.MM.dd 'at' HH:mm:ss.SSS");
+                            for (Date date : listTopicsWithDate.keySet()) {
+                                out.println("<tr><td><a style=\"text-decoration: none; color: black;\" href=\"#\" onclick=\"getLinkValue(this); return false\">" +listTopicsWithDate.get(date) + " - " + simpleDateFormat.format(date) +"</a></td></tr>");
+                            }
+                        %>
+                    </table>
+                </div>
+                <a href="#clearHistory" style="text-decoration: none; float: right;">Clear history</a>
             </div>
         </div>
         <div id="main">
@@ -45,7 +67,7 @@
                     </div>
                     <div class="form-group">
                         <div class="col-sm-12">
-                            <input type="button" class="btn btn-info pull-right" value="get info!" onclick="drawing()" />
+                            <input type="button" class="btn btn-info pull-right" value="get info!" onclick="getSentimentResultWithTweetsByTopic()" />
                         </div>
                     </div>
                     <div class="form-group">
@@ -91,7 +113,14 @@
             $(".act span").text(x);
             $(".prev span").text(y);
         });
+
+
     });
+
+    function getLinkValue(value) {
+        var linkValue = value.innerHTML;
+        console.log('linkValue= ' + linkValue);
+    }
 
     function drawChartBar(sentimentResultArray, numberOfTweetsArray) {
 
@@ -108,6 +137,7 @@
                 }
             ]
         };
+
         var ctx = document.getElementById('barChart').getContext('2d');
         barChart = new Chart(ctx).Bar(barChartData, {
             responsive: true
@@ -115,7 +145,7 @@
     }
 
     function showTweets(sentimentResultWithTweets) {
-        var str= '<table>';
+        var str= '<table class="table table-hover">';
         for(var k in sentimentResultWithTweets){
             var sentimentResultTweet = sentimentResultWithTweets[k];
             for(var i in sentimentResultTweet.tweets){
@@ -127,12 +157,12 @@
 
     }
 
-    function drawing() {
+    function getSentimentResultWithTweetsByTopic() {
         $('#message').empty();
         var inputText = $('#requestText').val().trim();
         var firstDate = $('#calendarFrom').val().trim();
         var lastDate = $('#calendarTo').val().trim();
-        var ipAddress = JSON.parse('${jsonIpAddress}');
+        var ipAddress = jQuery.parseJSON('${jsonIpAddress}');
 
         if(inputText === '') {
             $('#message').html('Entry data!');
@@ -151,7 +181,7 @@
                     var sentimentResults = sentimentResultWithTweets.map( sentimentResultTweet => sentimentResultTweet.sentimentResult);
                     var numberOfTweets = sentimentResultWithTweets.map( sentimentResultTweet => sentimentResultTweet.numberOfTweets);
                     if (barChart != undefined || barChart != null)
-                            barChart.destroy();
+                        barChart.destroy();
                     drawChartBar(sentimentResults, numberOfTweets);
                     showTweets(sentimentResultWithTweets);
                 },
