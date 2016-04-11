@@ -1,10 +1,6 @@
-<%@ page import="java.text.SimpleDateFormat" %>
-<%@ page import="org.codehaus.jackson.map.ObjectMapper" %>
-<%@ page import="org.codehaus.jackson.type.TypeReference" %>
 <%@ page import="java.util.*" %>
 <%@ page import="netCrackerTestApp.objects.JsonHistory" %>
-<%@ page import="javax.json.Json" %>
-<%@ page import="org.codehaus.jackson.map.type.CollectionType" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -56,7 +52,7 @@
                         %>
                     </table>
                 </div>
-                <a href="#clearHistory" style="text-decoration: none; float: right;">Clear history</a>
+                <a href="#clearHistory" style="text-decoration: none; float: right;" onclick="deleteRequestHistory()">Clear history</a>
             </div>
         </div>
         <div id="main">
@@ -217,10 +213,28 @@
 
             },
             error: function (data) {
-                console.log('getHistoryError =  ' + data);
+                console.log('getHistory Error =  ' + data);
                 alert(data);
             }
         });
+    }
+
+    function deleteRequestHistory() {
+        var ipAddress = jQuery.parseJSON('${jsonIpAddress}');
+        console.log('ip= ' + ipAddress);
+        $.ajax({
+            url: '/delete',
+            type: 'POST',
+            data: 'ipAddress=' + ipAddress,
+            success: function (data) {
+                $('#history').html('<table class="table table-hover"></table>');
+            },
+            error: function (data) {
+                console.log('deleteRequestHistory Error =  ' + data);
+                alert(data);
+            }
+        });
+
     }
 </script>
 </body>

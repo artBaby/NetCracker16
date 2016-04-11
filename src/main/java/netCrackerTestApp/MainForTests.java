@@ -15,27 +15,25 @@ import java.util.*;
 public class MainForTests {
 
     public static void main(String[] arg) throws IOException {
-//        JsonHistory history = new JsonHistory();
-//        HashMap<Date, String> topicsAndDate = history.getTopicsAndDate("0:0:0:0:0:0:0:1");
-//        for (Date date : topicsAndDate.keySet()) {
-//            System.out.println(topicsAndDate.get(date));
-//        }
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy.MM.dd 'at' HH:mm:ss.SSS");
-        Date date1 = new Date();
-        System.out.println("date1 = " + date1);
-        System.out.println("date1Mil = " + date1.getTime());
-        String format = simpleDateFormat.format(date1.getTime());
-        System.out.println("format= " + format);
 
-        String expectedPattern = "yyyy.MM.dd 'at' HH:mm:ss.SSS";
-        SimpleDateFormat formatter = new SimpleDateFormat(expectedPattern);
-        try {
-            Date date2 = formatter.parse(format);
-            System.out.println("date2 = " + date2);
-            System.out.println("date2Mil = " + date2.getTime());
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        History history = new History();
+        history.deleteHistory("0:0:0:0:0:0:0:1");
+//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy.MM.dd 'at' HH:mm:ss.SSS");
+//        Date date1 = new Date();
+//        System.out.println("date1 = " + date1);
+//        System.out.println("date1Mil = " + date1.getTime());
+//        String format = simpleDateFormat.format(date1.getTime());
+//        System.out.println("format= " + format);
+//
+//        String expectedPattern = "yyyy.MM.dd 'at' HH:mm:ss.SSS";
+//        SimpleDateFormat formatter = new SimpleDateFormat(expectedPattern);
+//        try {
+//            Date date2 = formatter.parse(format);
+//            System.out.println("date2 = " + date2);
+//            System.out.println("date2Mil = " + date2.getTime());
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
 
     }
 }

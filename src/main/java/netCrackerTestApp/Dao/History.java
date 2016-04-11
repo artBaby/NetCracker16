@@ -45,7 +45,12 @@ public class History {
             listTopicsWithDate.add(new JsonHistory(createdAt,topic));
         }
         return listTopicsWithDate;
+    }
 
+    public void deleteHistory (String ipAddress){
+        BasicDBObject basicDBObject = new BasicDBObject();
+        basicDBObject.put("ipAddress",ipAddress);
+        history.deleteMany(basicDBObject);
     }
 
 }

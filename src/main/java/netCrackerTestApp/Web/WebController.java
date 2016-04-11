@@ -97,4 +97,10 @@ public class WebController {
         return jsonListTopicsWithDate;
     }
 
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    public @ResponseBody String deleteRequestHistory(@RequestParam("ipAddress") String ipAddress){
+        history.deleteHistory(ipAddress);
+        String str = "";
+        return str;
+    }
 }
