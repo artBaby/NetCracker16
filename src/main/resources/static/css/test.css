@@ -23,24 +23,24 @@ body{
         float: left;
         padding: 5px 0;
     }
-     ul{
+     #header ul{
          float: right;
          padding: 0;
          margin: 0 auto;
          height: 100%;
      }
-     ul li{
+        #header ul li{
          list-style: none;
          display: inline-block;
          font-size: 18px;
          margin: 10px 20px;
          padding: 20px;
      }
-     ul li a{
+        #header ul li a{
          color: white;
          text-decoration: none;
      }
-         ul li a:hover {
+            #header ul li a:hover {
                 color: white;
                 font-weight: bold;
                 text-decoration: none;
