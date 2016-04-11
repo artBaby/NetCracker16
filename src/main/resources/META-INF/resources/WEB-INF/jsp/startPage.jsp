@@ -14,16 +14,19 @@
     <script src="${pageContext.request.contextPath}/javascript/jquery-ui.js"></script>
     <script src="${pageContext.request.contextPath}/javascript/bootstrap.min.js"></script>
 
+
 </head>
 
 <body>
 <div id="wrapper">
     <div id="header">
-
         <img src="../images/squirrel.png"  width="68" height="85" hspace="15">
-
+        <ul>
+            <li><a href="information.jsp">Information</a></li>
+            <li><a href="help.jsp">Help</a></li>
+        </ul>
     </div>
-    <div id="description">Sentiment analysis (also known as opinion mining) refers to the use of natural language processing, text analysis and computational linguistics to identify and extract subjective information in source materials. Sentiment analysis is widely applied to reviews and social media for a variety of applications, ranging from marketing to customer service.</div>
+    <div id="description"><h1>Sentiment analysis</h1> (also known as opinion mining) refers to the use of natural language processing, text analysis and computational linguistics to identify and extract subjective information in source materials. Sentiment analysis is widely applied to reviews and social media for a variety of applications, ranging from marketing to customer service.</div>
     <div id="content">
         <div id="sidebar">
             <div id="sidebarTop"> <a class="twitter-timeline" data-dnt="true" href="https://twitter.com/Omi_support" data-widget-id="718071517645512705">Tweets by @Omi_support</a>
