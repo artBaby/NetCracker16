@@ -15,7 +15,7 @@ import java.util.*;
 public class MainForTests {
 
     public static void main(String[] arg) throws IOException {
-//        History history = new History();
+//        JsonHistory history = new JsonHistory();
 //        HashMap<Date, String> topicsAndDate = history.getTopicsAndDate("0:0:0:0:0:0:0:1");
 //        for (Date date : topicsAndDate.keySet()) {
 //            System.out.println(topicsAndDate.get(date));

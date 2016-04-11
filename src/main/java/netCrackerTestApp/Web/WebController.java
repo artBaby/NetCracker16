@@ -3,6 +3,7 @@ package netCrackerTestApp.Web;
 import netCrackerTestApp.Dao.History;
 import netCrackerTestApp.Dao.MongoDao;
 import netCrackerTestApp.SentimentAnalysis;
+import netCrackerTestApp.objects.JsonHistory;
 import netCrackerTestApp.objects.JsonSentimentResult;
 import netCrackerTestApp.objects.SentimentTweet;
 import org.codehaus.jackson.JsonProcessingException;
@@ -24,7 +25,7 @@ public class WebController {
     @RequestMapping("/")
     public String index(HttpServletRequest request, Model model) {
         String ipAddress  = request.getRemoteAddr(); //get client Ip Address
-        HashMap<Date, String> listTopicsWithDate = history.getTopicsAndDate(ipAddress);
+        List<JsonHistory> listTopicsWithDates = history.getTopicsAndDate(ipAddress);
 
         ObjectMapper mapper = new ObjectMapper();
         String jsonIpAddress = "";
@@ -35,7 +36,7 @@ public class WebController {
         }
 
         model.addAttribute("jsonIpAddress", jsonIpAddress);
-        model.addAttribute("listTopicsWithDate", listTopicsWithDate);
+        model.addAttribute("listTopicsWithDates", listTopicsWithDates);
         return "startPage";
     }
 
@@ -81,4 +82,19 @@ public class WebController {
     private JsonSentimentResult updateValue(String sentimentResult, long numberOfTweets, List<String> tweets){
         return (new JsonSentimentResult(sentimentResult,numberOfTweets, tweets ));
     }
+
+    @RequestMapping(value = "/ajaxGetHistory", method = RequestMethod.POST)
+    public @ResponseBody String getHistory(@RequestParam("ipAddress") String ipAddress){
+        List<JsonHistory> listTopicsWithDate = history.getTopicsAndDate(ipAddress);
+
+        ObjectMapper mapper = new ObjectMapper();
+        String jsonListTopicsWithDate = "";
+        try {
+            jsonListTopicsWithDate = mapper.writeValueAsString(listTopicsWithDate);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return jsonListTopicsWithDate;
+    }
+
 }

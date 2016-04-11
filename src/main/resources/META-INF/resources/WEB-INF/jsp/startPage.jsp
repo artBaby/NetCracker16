@@ -1,7 +1,10 @@
-<%@ page import="java.util.List" %>
-<%@ page import="java.util.Date" %>
 <%@ page import="java.text.SimpleDateFormat" %>
-<%@ page import="java.util.HashMap" %>
+<%@ page import="org.codehaus.jackson.map.ObjectMapper" %>
+<%@ page import="org.codehaus.jackson.type.TypeReference" %>
+<%@ page import="java.util.*" %>
+<%@ page import="netCrackerTestApp.objects.JsonHistory" %>
+<%@ page import="javax.json.Json" %>
+<%@ page import="org.codehaus.jackson.map.type.CollectionType" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -46,10 +49,9 @@
                 <div id="history">
                     <table class="table table-hover">
                         <%
-                            HashMap<Date,String> listTopicsWithDate = (HashMap<Date,String>) request.getAttribute("listTopicsWithDate");
-                            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy.MM.dd 'at' HH:mm:ss.SSS");
-                            for (Date date : listTopicsWithDate.keySet()) {
-                                out.println("<tr><td><a style=\"text-decoration: none; color: black;\" href=\"#\" onclick=\"getLinkValue(this); return false\">" +listTopicsWithDate.get(date) + " - " + simpleDateFormat.format(date) +"</a></td></tr>");
+                            List<JsonHistory> listTopicsWithDates = (List<JsonHistory>) request.getAttribute("listTopicsWithDates");
+                            for (JsonHistory history : listTopicsWithDates) {
+                                out.println("<tr><td><a style=\"text-decoration: none; color: black;\" href=\"#\" onclick=\"getLinkValue(this); return false\">" + history.getTopic() + " - " + history.getCreatedDate() +"</a></td></tr>");
                             }
                         %>
                     </table>
@@ -167,6 +169,7 @@
         if(inputText === '') {
             $('#message').html('Entry data!');
             barChart.destroy();
+            $('#posts').remove();
         }else {
             console.log('inputText= ' + inputText);
             console.log('firstDate= ' + firstDate);
@@ -177,6 +180,7 @@
                 data: 'topic=' + inputText + "&firstDate=" + firstDate + "&lastDate=" + lastDate + "&ipAddress=" + ipAddress,
                 success: function (data) {
                     console.log('data=' + data);
+                    getHistory();
                     var sentimentResultWithTweets = jQuery.parseJSON(data);
                     var sentimentResults = sentimentResultWithTweets.map( sentimentResultTweet => sentimentResultTweet.sentimentResult);
                     var numberOfTweets = sentimentResultWithTweets.map( sentimentResultTweet => sentimentResultTweet.numberOfTweets);
@@ -191,7 +195,32 @@
                 }
             });
         }
+    }
 
+    function getHistory() {
+        var ipAddress = jQuery.parseJSON('${jsonIpAddress}');
+        console.log('ip= ' + ipAddress);
+        $.ajax({
+            url: '/ajaxGetHistory',
+            type: 'POST',
+            data: 'ipAddress=' + ipAddress,
+            success: function (data) {
+                var listTopicsWithDates = jQuery.parseJSON(data);
+
+                var str= '<table class="table table-hover">';
+                for(var i in listTopicsWithDates){
+                    var topicWithDate = listTopicsWithDates[i];
+                        str= str.concat('<tr><td><a style="text-decoration: none; color: black;" href="#" onclick="getLinkValue(this); return false">' + topicWithDate.topic + ' - ' + topicWithDate.createdDate + '</a></td></tr>');
+                }
+                str.concat('</table>');
+                $('#history').html(str);
+
+            },
+            error: function (data) {
+                console.log('getHistoryError =  ' + data);
+                alert(data);
+            }
+        });
     }
 </script>
 </body>

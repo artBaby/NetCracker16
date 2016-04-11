@@ -4,6 +4,7 @@ package netCrackerTestApp.Dao;
 import com.mongodb.BasicDBObject;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
+import netCrackerTestApp.objects.JsonHistory;
 import netCrackerTestApp.objects.JsonSentimentResult;
 import org.bson.Document;
 import java.util.*;
@@ -33,16 +34,15 @@ public class History {
         history.insertOne(document);
     }
 
-    public HashMap<Date, String> getTopicsAndDate(String ipAddress) {
-        HashMap<Date, String> listTopicsWithDate = new LinkedHashMap<>();
+    public List<JsonHistory> getTopicsAndDate(String ipAddress) {
+        List<JsonHistory> listTopicsWithDate = new ArrayList<>();
         BasicDBObject basicDBObject = new BasicDBObject();
         basicDBObject.put("ipAddress",ipAddress);
-        FindIterable<Document> documents = history.find(basicDBObject).sort(new BasicDBObject("createdAt",1));
+        FindIterable<Document> documents = history.find(basicDBObject).sort(new BasicDBObject("createdAt",-1));
         for (Document document : documents) {
             String topic = (String) document.get("topic");
             Date createdAt = (Date) document.get("createdAt");
-            System.out.println("createdAt = " +  createdAt.toString());
-            listTopicsWithDate.put(createdAt,topic);
+            listTopicsWithDate.add(new JsonHistory(createdAt,topic));
         }
         return listTopicsWithDate;
 

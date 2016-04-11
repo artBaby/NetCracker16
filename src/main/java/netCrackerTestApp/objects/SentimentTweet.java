@@ -61,7 +61,6 @@ public class SentimentTweet {
         SentimentTweet that = (SentimentTweet) o;
 
         return textPost != null ? textPost.equals(that.textPost) : that.textPost == null;
-
     }
 
     @Override
