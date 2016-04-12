@@ -1,15 +1,8 @@
 package netCrackerTestApp;
 
 import netCrackerTestApp.Dao.History;
-import netCrackerTestApp.Dao.MongoDao;
-import netCrackerTestApp.objects.SentimentTweet;
-import org.joda.time.DateTime;
-
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.Year;
-import java.util.*;
+
 
 
 public class MainForTests {

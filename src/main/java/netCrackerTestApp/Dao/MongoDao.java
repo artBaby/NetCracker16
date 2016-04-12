@@ -6,10 +6,10 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import netCrackerTestApp.objects.Account;
 import netCrackerTestApp.objects.SentimentTweet;
+import org.apache.log4j.Logger;
 import org.bson.Document;
 import org.joda.time.DateTime;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 import org.springframework.social.twitter.api.Tweet;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +18,7 @@ import java.util.regex.Pattern;
 
 public class MongoDao {
     private final static  MongoDao mongoDao = new MongoDao();
-    private final Logger logger = LoggerFactory.getLogger(MongoDao.class);
+    private final Logger logger = Logger.getLogger(MongoDao.class);
 
     public final MongoDatabase db = new MongoClient("localhost").getDatabase("db");
     private final MongoCollection<Document> accounts = db.getCollection("accounts");

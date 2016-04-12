@@ -82,6 +82,11 @@
             <version>2.4.4</version>
         </dependency>
 
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.17</version>
+        </dependency>
 
         <!--Allows Object to JSON converting for Ajax-->
         <dependency>
@@ -89,8 +94,6 @@
             <artifactId>jackson-mapper-asl</artifactId>
             <version>1.9.10</version>
         </dependency>
-
-
     </dependencies>
 
 
@@ -98,10 +101,28 @@
     <build>
         <plugins>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.4.0</version>
+                <executions>
+                    <execution>
+                        <id>my-execution</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <mainClass>netCrackerTestApp.TwitterStreamExtractor</mainClass>
                 </configuration>
             </plugin>
             <plugin>

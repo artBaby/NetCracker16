@@ -9,7 +9,6 @@ import edu.stanford.nlp.sentiment.SentimentCoreAnnotations;
 import edu.stanford.nlp.trees.Tree;
 import edu.stanford.nlp.util.CoreMap;
 import netCrackerTestApp.objects.SentimentTweet;
-
 import java.util.*;
 import java.util.stream.Collectors;
 

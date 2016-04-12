@@ -1,15 +1,15 @@
 package netCrackerTestApp;
 
 import netCrackerTestApp.Dao.MongoDao;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
+import org.apache.log4j.Logger;
 import org.springframework.social.twitter.api.*;
 import java.io.Serializable;
 
 
 public class TwitterStreamListener implements StreamListener, Serializable {
 
-    private final Logger logger = LoggerFactory.getLogger(TwitterStreamListener.class);
+    private final Logger logger = Logger.getLogger(TwitterStreamListener.class);
     private final SentimentAnalysis sentimentAnalysis = new SentimentAnalysis();
     MongoDao mongoDao = MongoDao.getInstance();
 

@@ -1,6 +1,5 @@
 package netCrackerTestApp.objects;
 
-import netCrackerTestApp.objects.Account;
 import java.io.Serializable;
 
 public class StreamTask implements Serializable {
