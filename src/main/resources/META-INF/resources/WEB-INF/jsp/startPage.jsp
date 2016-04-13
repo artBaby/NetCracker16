@@ -72,7 +72,9 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <div id="message"></div>
+                        <div class="col-sm-6">
+                            <div id="message"></div>
+                        </div>
                     </div>
                 </form>
             </div>
@@ -186,7 +188,7 @@
         var lastDate = $('#calendarTo').val().trim();
 
         if(inputText === '') {
-            $('#message').html('Entry data!');
+            $('#message').html('<h4 style="color: red">Enter data!</h4>');
             barChart.destroy();
             $('#posts').remove();
         }else {
