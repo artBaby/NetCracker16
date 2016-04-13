@@ -1,6 +1,5 @@
 package netCrackerTestApp;
 
-
 import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.neural.rnn.RNNCoreAnnotations;
 import edu.stanford.nlp.pipeline.Annotation;
@@ -13,9 +12,10 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class SentimentAnalysis {
-    StanfordCoreNLP pipeline;
 
-    public SentimentAnalysis() {
+    private static final StanfordCoreNLP pipeline;
+
+    static  {
         Properties props = new Properties();
         props.setProperty("annotators", "tokenize, ssplit, pos, lemma, parse, sentiment");
         pipeline = new StanfordCoreNLP(props);
@@ -35,7 +35,6 @@ public class SentimentAnalysis {
     public Map<Integer, Long> getSentimentResultByTopic(List<SentimentTweet> sentimentTweetList){
         Map<Integer, Long> collect = sentimentTweetList.stream()
                 .collect(Collectors.groupingBy(SentimentTweet::getSentimentResult, Collectors.counting()));
-        sentimentTweetList.stream().collect(Collectors.groupingBy(SentimentTweet::getSentimentResult));
         return collect;
     }
 

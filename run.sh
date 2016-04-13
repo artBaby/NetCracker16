@@ -1,1 +1,1 @@
-mvn spring-boot:run
+#!/usr/bin/env bash
