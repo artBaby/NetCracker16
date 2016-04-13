@@ -3,5 +3,6 @@
 <head>
 </head>
 <body>
+Here will be help info about our project
 </body>
 </html>

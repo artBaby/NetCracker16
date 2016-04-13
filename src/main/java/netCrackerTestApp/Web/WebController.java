@@ -10,6 +10,8 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.text.ParseException;
@@ -128,6 +130,20 @@ public class WebController {
         }
 
         return jsonSentimentResultWithTweets;
+    }
+
+    @RequestMapping(value = "/help")
+    public ModelAndView help() {
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("help");
+        return mav;
+    }
+
+    @RequestMapping(value = "/info")
+    public ModelAndView info() {
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("information");
+        return mav;
     }
 
 }

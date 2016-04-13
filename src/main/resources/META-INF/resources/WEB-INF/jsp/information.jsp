@@ -3,5 +3,6 @@
 <head>
 </head>
 <body>
+Here will be some information about us
 </body>
 </html>
