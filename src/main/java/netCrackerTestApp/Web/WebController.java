@@ -40,7 +40,7 @@ public class WebController {
 
         model.addAttribute("jsonIpAddress", jsonIpAddress);
         model.addAttribute("listTopicsWithDates", listTopicsWithDates);
-        return "information";
+        return "startPage";
     }
 
     @RequestMapping(value = "/ajaxRequest", method = RequestMethod.POST)

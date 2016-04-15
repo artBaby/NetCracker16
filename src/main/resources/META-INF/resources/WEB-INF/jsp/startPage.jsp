@@ -53,7 +53,8 @@
                         <%
                             List<JsonHistory> listTopicsWithDates = (List<JsonHistory>) request.getAttribute("listTopicsWithDates");
                             for (JsonHistory history : listTopicsWithDates) {
-                                out.println("<tr><td><a style=\"text-decoration: none; color: black;\" href=\"#\" onclick=\"getTopicAndDateByLink(this); return false\">" + history.getTopic() + " - " + history.getCreatedDate() +"</a></td></tr>");
+                                out.println("<tr><td><a style=\"text-decoration: none; color: black;\" href=\"#\" onclick=\"getTopicAndDateByLink(this); return false\">" +
+                                        history.getTopic() + " - " + history.getCreatedDate() +"</a></td></tr>");
                             }
                         %>
                     </table>
@@ -84,8 +85,8 @@
             <div id="output">
                 <fieldset class="fieldset">
                     <ul class="nav nav-tabs" data-tabs="tabs">
-                        <li class="active"><a href="#chart" data-toggle="tab">Chart</a></li>
-                        <li><a href="#posts" data-toggle="tab">Posts</a></li>
+                        <li class="active"><a id="tab1" href="#chart" data-toggle="tab">Chart</a></li>
+                        <li><a id="tab2" href="#posts" data-toggle="tab">Posts</a></li>
                     </ul>
                     <div class="tab-content">
                         <div id="chart" class="tab-pane active">
@@ -114,6 +115,7 @@
 
     function getTopicAndDateByLink(value) {
         var topicAndDate = value.innerHTML;
+        var activeTab = 'tab1';
         console.log('topicAndDate= ' + topicAndDate);
         $.ajax({
             url: '/getSentimentResultByTopicAndDate',
@@ -124,9 +126,20 @@
                 var sentimentResultWithTweets = jQuery.parseJSON(data);
                 var sentimentResults = sentimentResultWithTweets.map( sentimentResultTweet => sentimentResultTweet.sentimentResult);
                 var numberOfTweets = sentimentResultWithTweets.map( sentimentResultTweet => sentimentResultTweet.numberOfTweets);
-                if (barChart != undefined || barChart != null)
-                    barChart.destroy();
-                drawChartBar(sentimentResults, numberOfTweets);
+                $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+                    activeTab = $(e.target).attr('id');
+                    if (activeTab == 'tab1') {
+                        if (barChart != undefined || barChart != null)
+                            barChart.destroy();
+                        drawChartBar(sentimentResults, numberOfTweets);
+                    }
+                });
+                activeTab = $('.nav-tabs .active').text();
+                if (activeTab == 'Chart'){
+                    if (barChart != undefined || barChart != null)
+                        barChart.destroy();
+                    drawChartBar(sentimentResults, numberOfTweets);
+                }
                 showTweets(sentimentResultWithTweets);
             },
             error: function (data) {
