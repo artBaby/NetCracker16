@@ -83,15 +83,15 @@
             </div>
             <div id="output">
                 <fieldset class="fieldset">
-                    <ul class="nav nav-tabs">
-                        <li class="active"><a href="#chart">Chart</a></li>
-                        <li><a href="#posts">Posts</a></li>
+                    <ul class="nav nav-tabs" data-tabs="tabs">
+                        <li class="active"><a href="#chart" data-toggle="tab">Chart</a></li>
+                        <li><a href="#posts" data-toggle="tab">Posts</a></li>
                     </ul>
                     <div class="tab-content">
-                        <div id="chart" class="tab-pane fade in active">
+                        <div id="chart" class="tab-pane active">
                             <canvas id="barChart"></canvas>
                         </div>
-                        <div id="posts" class="tab-pane fade"></div>
+                        <div id="posts" class="tab-pane"></div>
                     </div>
                 </fieldset>
             </div>
@@ -110,18 +110,6 @@
         );
         $("#calendarFrom").datepicker({dateFormat:'yy-mm-dd'});
         $("#calendarTo").datepicker({dateFormat:'yy-mm-dd'});
-
-        $(".nav-tabs a").click(function(){
-            $(this).tab('show');
-        });
-        $('.nav-tabs a').on('shown.bs.tab', function(event){
-            var x = $(event.target).text();         // active tab
-            var y = $(event.relatedTarget).text();  // previous tab
-            $(".act span").text(x);
-            $(".prev span").text(y);
-        });
-
-
     });
 
     function getTopicAndDateByLink(value) {
