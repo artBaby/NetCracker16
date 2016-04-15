@@ -21,12 +21,15 @@
 <div id="wrapper">
     <div id="header">
         <img src="../images/squirrel.png"  width="68" height="85" hspace="15">
+        <h4 style="color: orangered; padding: 25px 0 0 0; display: inline-block;">Opinion mining</h4>
         <ul>
             <li><a href="info">Information</a></li>
             <li><a href="help">Help</a></li>
         </ul>
     </div>
-    <div id="description"><h1>Sentiment analysis</h1> (also known as opinion mining) refers to the use of natural language processing, text analysis and computational linguistics to identify and extract subjective information in source materials. Sentiment analysis is widely applied to reviews and social media for a variety of applications, ranging from marketing to customer service.</div>
+    <div id="description"><h1 style="text-align: center; font-style: normal;">Sentiment analysis</h1>
+        <p>Sentiment analysis aims to determine the attitude of a speaker or a writer with respect to some topic or the overall contextual polarity of a document.</p>
+    </div>
     <div id="content">
         <div id="sidebar">
             <div id="sidebarTop"> <a class="twitter-timeline" data-dnt="true" href="https://twitter.com/Omi_support" data-widget-id="718071517645512705">Tweets by @Omi_support</a>
@@ -72,7 +75,9 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <div id="message"></div>
+                        <div class="col-sm-6">
+                            <div id="message"></div>
+                        </div>
                     </div>
                 </form>
             </div>
@@ -92,7 +97,7 @@
             </div>
         </div>
     </div>
-    <div id="footer"> 2016 TwitSense &trade; </div>
+    <div id="footer"> 2016 Opinion mining</div>
 </div>
 
 <script>
@@ -186,7 +191,7 @@
         var lastDate = $('#calendarTo').val().trim();
 
         if(inputText === '') {
-            $('#message').html('Entry data!');
+            $('#message').html('<h4 style="color: red">Enter data!</h4>');
             barChart.destroy();
             $('#posts').remove();
         }else {

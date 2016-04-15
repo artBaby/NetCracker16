@@ -100,6 +100,7 @@
 
     <build>
         <plugins>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -108,23 +109,22 @@
                     <target>1.8</target>
                 </configuration>
             </plugin>
+
+            <!-- Maven JAR Plugin -->
             <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <version>1.4.0</version>
-                <executions>
-                    <execution>
-                        <id>my-execution</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>java</goal>
-                        </goals>
-                    </execution>
-                </executions>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.4</version>
                 <configuration>
-                    <mainClass>netCrackerTestApp.TwitterStreamExtractor</mainClass>
+                  <archive>
+                    <manifest>
+                      <mainClass>netCrackerTestApp.Web.WebApplication</mainClass>
+                    </manifest>
+                  </archive>
                 </configuration>
-            </plugin>
+             </plugin>
+            
+
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
