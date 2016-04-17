@@ -7,23 +7,37 @@ import netCrackerTestApp.objects.JsonHistory;
 import netCrackerTestApp.objects.JsonSentimentResult;
 import netCrackerTestApp.objects.SentimentTweet;
 import org.codehaus.jackson.map.ObjectMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+
 
 @Controller
 public class WebController {
     private final MongoDao mongoDao = MongoDao.getInstance();
     private final SentimentAnalysis sentimentAnalysis = new SentimentAnalysis();
     private History history = new History();
+    @Autowired
+    private JavaMailSender javaMailSender;
+
 
     @RequestMapping("/")
     public String index(HttpServletRequest request, Model model) {
@@ -144,6 +158,35 @@ public class WebController {
         ModelAndView mav = new ModelAndView();
         mav.setViewName("information");
         return mav;
+    }
+
+    @RequestMapping(value = "/sendEmail", method = RequestMethod.POST)
+    public @ResponseBody String sendEmail(HttpServletRequest request,
+                                          HttpServletResponse response,
+                                          @RequestParam("email") String emailUser,
+                                          @RequestParam("subject") String subject,
+                                          @RequestParam("content") String content) throws MessagingException{
+        String email = "omi.sentiment@yandex.ru";
+
+        Pattern pattern = Pattern.compile("^([a-z0-9_\\.-]+)@([a-z0-9_\\.-]+)\\.([a-z\\.]{2,6})$", Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(emailUser);
+        System.out.println(matcher.matches());
+        if(!matcher.matches()){
+           return "Your email address is invalid. Please enter a valid address.";
+        }
+        if(content.trim().isEmpty()){
+            return "Please enter the content.";
+        }
+
+        JavaMailSenderImpl sender = new JavaMailSenderImpl();
+        MimeMessage message = sender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message);
+        helper.setTo(email);
+        helper.setFrom(email);
+        helper.setSubject(subject);
+        helper.setText("<p>Email user:  "+emailUser+"</p><p>" + content + "</p>", true);
+        javaMailSender.send(message);
+        return "The message has been sent!";
     }
 
 }
