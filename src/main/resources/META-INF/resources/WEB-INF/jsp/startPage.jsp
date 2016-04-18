@@ -5,9 +5,8 @@
 <html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <link rel='stylesheet' href='/css/test.css'/>
+    <link rel='stylesheet' href='/css/main.css'/>
     <link rel='stylesheet' href='/css/bootstrap.min.css'/>
-    <link rel='stylesheet' href='/css/bootstrap-theme.min.css'/>
     <link rel='stylesheet' href='/css/jquery-ui.css'/>
     <script src='${pageContext.request.contextPath}/javascript/Chart.js'></script>
     <script src="${pageContext.request.contextPath}/javascript/jquery-1.12.2.js"></script>
@@ -73,14 +72,12 @@
                     </div>
                     <div class="form-group">
                         <div class="col-sm-12">
-                            <input type="button" class="btn btn-info pull-right" value="get info!" onclick="getSentimentResultWithTweetsByTopic()" />
+                            <input type="button" class="btn btn-sample pull-right" value="get info!" onclick="getSentimentResultWithTweetsByTopic()" />
                         </div>
                     </div>
-                    <div class="form-group">
-                        <div class="col-sm-6">
-                            <div id="message"></div>
-                        </div>
-                    </div>
+                    <fieldset class="form-group">
+                        <div id="message" style="text-align: center; color: red;"></div>
+                    </fieldset>
                 </form>
             </div>
             <div id="output">
@@ -105,13 +102,14 @@
 <script>
     var barChart;
     var ipAddress = jQuery.parseJSON('${jsonIpAddress}');
-
+    
     $(function(){
         $.datepicker.setDefaults(
                 $.extend($.datepicker.regional["en"])
         );
         $("#calendarFrom").datepicker({dateFormat:'yy-mm-dd'});
         $("#calendarTo").datepicker({dateFormat:'yy-mm-dd'});
+        
     });
 
     function getTopicAndDateByLink(value) {

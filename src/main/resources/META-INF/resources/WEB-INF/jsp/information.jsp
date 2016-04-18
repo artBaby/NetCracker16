@@ -3,6 +3,5 @@
 <head>
 </head>
 <body>
-Here will be some information about us
-</body>
+Here will be help info about our project</body>
 </html>
