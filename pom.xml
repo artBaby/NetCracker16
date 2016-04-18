@@ -76,8 +76,15 @@
         <dependency>
             <groupId>org.mongodb</groupId>
             <artifactId>mongo-java-driver</artifactId>
-            <version>3.2.2</version>
+            <version>3.0.2</version>
         </dependency>
+        <dependency>
+            <groupId>org.mongodb</groupId>
+            <artifactId>bson</artifactId>
+            <version>2.13.2</version>
+        </dependency>
+
+
 
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
@@ -114,18 +121,39 @@
             </plugin>
 
             <!-- Maven JAR Plugin -->
+            <!--<plugin>-->
+                <!--<groupId>org.apache.maven.plugins</groupId>-->
+                <!--<artifactId>maven-jar-plugin</artifactId>-->
+                <!--<version>2.4</version>-->
+                <!--<configuration>-->
+                  <!--<archive>-->
+                    <!--<manifest>-->
+                      <!--<mainClass>netCrackerTestApp.Web.WebApplication</mainClass>-->
+                    <!--</manifest>-->
+                  <!--</archive>-->
+                <!--</configuration>-->
+             <!--</plugin>-->
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>2.4</version>
-                <configuration>
-                  <archive>
-                    <manifest>
-                      <mainClass>netCrackerTestApp.Web.WebApplication</mainClass>
-                    </manifest>
-                  </archive>
-                </configuration>
-             </plugin>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>2.10</version>
+                <executions>
+                    <execution>
+                        <id>copy-dependencies</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/deps</outputDirectory>
+                            <overWriteReleases>false</overWriteReleases>
+                            <overWriteSnapshots>false</overWriteSnapshots>
+                            <overWriteIfNewer>true</overWriteIfNewer>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
             
 
             <plugin>
