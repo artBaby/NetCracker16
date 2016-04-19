@@ -6,6 +6,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link rel='stylesheet' href='/css/main.css'/>
+    <link rel='stylesheet' href='/css/panel.css'/>
     <link rel='stylesheet' href='/css/bootstrap.min.css'/>
     <link rel='stylesheet' href='/css/jquery-ui.css'/>
     <script src='${pageContext.request.contextPath}/javascript/Chart.js'></script>
@@ -94,7 +95,7 @@
             <div id="sidebarBottom">
                 <div class="panel panel-default">
                     <div class="panel-heading" style="padding:0 5px; font-family: Arial, Helvetica, sans-serif; background-color: #7D7777; border-color: #7D7777; color: white; font-weight: bold;">History</div>
-                    <div class="panel-body" style="overflow-y:scroll; max-height: 300px;">
+                    <div class="panel-body">
                         <table class="table table-hover ">
                             <%
                                 List<JsonHistory> listTopicsWithDates = (List<JsonHistory>) request.getAttribute("listTopicsWithDates");
