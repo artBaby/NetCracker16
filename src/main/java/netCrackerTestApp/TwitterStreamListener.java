@@ -1,7 +1,6 @@
 package netCrackerTestApp;
 
 import netCrackerTestApp.Dao.MongoDao;
-
 import org.apache.log4j.Logger;
 import org.springframework.social.twitter.api.*;
 import java.io.Serializable;

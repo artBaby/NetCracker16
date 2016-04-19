@@ -36,10 +36,10 @@
                             rssmikle_url: "https://news.google.com/news?pz=1&cf=all&ned=us&hl=en&output=rss",
                             rssmikle_frame_width: "300",
                             rssmikle_frame_height: "400",
-                            frame_height_by_article: "3",
+                            frame_height_by_article: "2",
                             rssmikle_target: "_blank",
                             rssmikle_font: "Arial, Helvetica, sans-serif",
-                            rssmikle_font_size: "12",
+                            rssmikle_font_size: "14",
                             rssmikle_border: "on",
                             responsive: "on",
                             rssmikle_css_url: "",
@@ -49,7 +49,7 @@
                             scrollbar: "on",
                             autoscroll: "on",
                             scrolldirection: "up",
-                            scrollstep: "3",
+                            scrollstep: "2",
                             mcspeed: "20",
                             sort: "New",
                             rssmikle_title: "on",
@@ -79,8 +79,8 @@
                         };
                         feedwind_show_widget_iframe(params);})();
                 </script>
-                <div style="font-size:10px; text-align:center; ">
-                    <a href="http://feed.mikle.com/" target="_blank" style="color:#CCCCCC;">RSS Feed Widget</a>
+                <div style="font-size:12px; text-align:right; ">
+                    <a href="http://feed.mikle.com/" target="_blank" style="color:#7f7f7f;">RSS Feed Widget</a>
                     <!--Please display the above link in your web page according to Terms of Service.-->
                 </div>
                 <!-- end feedwind code -->
