@@ -21,7 +21,7 @@
     </div>
     <div id="description">
         <h2 style="text-align: center;">Send Message to Administrator</h2>
-        <p>All fields marked with an asterisk (*) are required. Fill out the fields below and then choose "Submit" to send your message to the Administrator.</p>
+        <p>All fields marked with an asterisk (<span style="color: red;">*</span>) are required. Fill out the fields below and then choose "Submit" to send your message to the Administrator.</p>
     </div>
     <div id="content">
         <div id="sidebar">

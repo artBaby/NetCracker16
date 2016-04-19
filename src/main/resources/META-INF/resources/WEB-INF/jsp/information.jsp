@@ -16,10 +16,12 @@
             <li><a href="help">Help</a></li>
         </ul>
     </div>
-    <div id="description" style="min-height: 500px;">
-        <h2 style="text-align: center;">Information</h2>
+    <div id="description" style="min-height: 150px;">
+        <p>This website provides an opportunity to get sentiment analysis of posts from Twitter on topics that interest you. </br>
+        Currently available analysis posts in English. As means for the analysis  is used Stanford CoreNL.
+        More information about this library can be found at: <a href="http://nlp.stanford.edu/sentiment/index.html">http://nlp.stanford.edu/sentiment/index.html</a>.</p>
     </div>
-
+    <div style="width: 80%; height: 300px;"></div>
     <div id="footer"> 2016 Opinion mining</div>
 </div>
 
