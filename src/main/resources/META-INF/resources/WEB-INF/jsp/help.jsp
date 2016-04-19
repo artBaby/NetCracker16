@@ -12,7 +12,7 @@
 <body>
 <div id="wrapper">
     <div id="header">
-        <img src="../images/squirrel.png"  width="68" height="85" hspace="15">
+        <a href="/"><img src="../images/squirrel.png"  width="68" height="85" hspace="15"></a>
         <h4 style="color: orangered; padding: 25px 0 0 0; display: inline-block;">Opinion mining</h4>
         <ul>
             <li><a href="info">Information</a></li>
