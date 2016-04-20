@@ -6,6 +6,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link rel='stylesheet' href='/css/main.css'/>
+    <link rel='stylesheet' href='/css/panel.css'/>
     <link rel='stylesheet' href='/css/bootstrap.min.css'/>
     <link rel='stylesheet' href='/css/jquery-ui.css'/>
     <script src='${pageContext.request.contextPath}/javascript/Chart.js'></script>
@@ -19,7 +20,7 @@
 <body>
 <div id="wrapper">
     <div id="header">
-        <img src="../images/squirrel.png"  width="68" height="85" hspace="15">
+        <a href="/"><img src="../images/squirrel.png"  width="68" height="85" hspace="15"></a>
         <h4 style="color: orangered; padding: 25px 0 0 0; display: inline-block;">Opinion mining</h4>
         <ul>
             <li><a href="info">Information</a></li>
@@ -31,35 +32,82 @@
     </div>
     <div id="content">
         <div id="sidebar">
-            <div id="sidebarTop"> <!-- start feedwind code --><script type="text/javascript">document.write('\x3Cscript type="text/javascript" src="' + ('https:' == document.location.protocol ? 'https://' : 'http://') + 'feed.mikle.com/js/rssmikle.js">\x3C/script>');</script><script type="text/javascript">(function() {var params = {rssmikle_url: "https://news.google.com/news?pz=1&cf=all&ned=us&hl=en&output=rss",rssmikle_frame_width: "300",rssmikle_frame_height: "400",frame_height_by_article: "3",rssmikle_target: "_blank",rssmikle_font: "Arial, Helvetica, sans-serif",rssmikle_font_size: "12",rssmikle_border: "on",responsive: "on",rssmikle_css_url: "",text_align: "left",text_align2: "left",corner: "on",scrollbar: "on",autoscroll: "on",scrolldirection: "up",scrollstep: "3",mcspeed: "20",sort: "New",rssmikle_title: "on",rssmikle_title_sentence: "News from around the World",rssmikle_title_link: "",rssmikle_title_bgcolor: "#7D7777",rssmikle_title_color: "#FFFFFF",rssmikle_title_bgimage: "",rssmikle_item_bgcolor: "#FFFFFF",rssmikle_item_bgimage: "",rssmikle_item_title_length: "55",rssmikle_item_title_color: "#595959",rssmikle_item_border_bottom: "on",rssmikle_item_description: "on",item_link: "off",rssmikle_item_description_length: "180",rssmikle_item_description_color: "#666666",rssmikle_item_date: "gl1",rssmikle_timezone: "Etc/GMT",datetime_format: "%b %e, %Y %k:%M",item_description_style: "text+tn",item_thumbnail: "full",item_thumbnail_selection: "auto",article_num: "15",rssmikle_item_podcast: "off",keyword_inc: "",keyword_exc: ""};feedwind_show_widget_iframe(params);})();</script><div style="font-size:10px; text-align:center; "><a href="http://feed.mikle.com/" target="_blank" style="color:#CCCCCC;">RSS Feed Widget</a><!--Please display the above link in your web page according to Terms of Service.--></div>
-                <!-- end feedwind code --><!--  end  feedwind code -->
-                <script>
-                    !function(d,s,id){
-                        var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';
-                        if(!d.getElementById(id)){
-                            js=d.createElement(s);
-                            js.id=id;
-                            js.src=p+"://platform.twitter.com/widgets.js";
-                            fjs.parentNode.insertBefore(js,fjs);
-                        }
-                    }
-                    (document,"script","twitter-wjs");
+            <div id="sidebarTop">
+                <!-- start feedwind code -->
+                <script type="text/javascript">
+                    document.write('\x3Cscript type="text/javascript" src="' + ('https:' == document.location.protocol ? 'https://' : 'http://') + 'feed.mikle.com/js/rssmikle.js">\x3C/script>');
                 </script>
+                <script type="text/javascript">
+                    (function() {
+                        var params = {
+                            rssmikle_url: "https://news.google.com/news?pz=1&cf=all&ned=us&hl=en&output=rss",
+                            rssmikle_frame_width: "300",
+                            rssmikle_frame_height: "400",
+                            frame_height_by_article: "2",
+                            rssmikle_target: "_blank",
+                            rssmikle_font: "Arial, Helvetica, sans-serif",
+                            rssmikle_font_size: "14",
+                            rssmikle_border: "on",
+                            responsive: "on",
+                            rssmikle_css_url: "",
+                            text_align: "left",
+                            text_align2: "left",
+                            corner: "on",
+                            scrollbar: "on",
+                            autoscroll: "on",
+                            scrolldirection: "up",
+                            scrollstep: "2",
+                            mcspeed: "20",
+                            sort: "New",
+                            rssmikle_title: "on",
+                            rssmikle_title_sentence: "News from around the World",
+                            rssmikle_title_link: "",
+                            rssmikle_title_bgcolor: "#7D7777",
+                            rssmikle_title_color: "#FFFFFF",
+                            rssmikle_title_bgimage: "",
+                            rssmikle_item_bgcolor: "#FFFFFF",
+                            rssmikle_item_bgimage: "",
+                            rssmikle_item_title_length: "55",
+                            rssmikle_item_title_color: "#595959",
+                            rssmikle_item_border_bottom: "on",
+                            rssmikle_item_description: "on",
+                            item_link: "off",
+                            rssmikle_item_description_length: "180",
+                            rssmikle_item_description_color: "#666666",
+                            rssmikle_item_date: "gl1",
+                            rssmikle_timezone: "Etc/GMT",datetime_format: "%b %e, %Y %k:%M",
+                            item_description_style: "text+tn",
+                            item_thumbnail: "full",
+                            item_thumbnail_selection: "auto",
+                            article_num: "15",
+                            rssmikle_item_podcast: "off",
+                            keyword_inc: "",
+                            keyword_exc: ""
+                        };
+                        feedwind_show_widget_iframe(params);})();
+                </script>
+                <div style="font-size:12px; text-align:right; ">
+                    <a href="http://feed.mikle.com/" target="_blank" style="color:#7f7f7f;">RSS Feed Widget</a>
+                    <!--Please display the above link in your web page according to Terms of Service.-->
+                </div>
+                <!-- end feedwind code -->
             </div>
             <div id="sidebarBottom">
-                <h3>History</h3>
-                <div id="history">
-                    <table class="table table-hover">
-                        <%
-                            List<JsonHistory> listTopicsWithDates = (List<JsonHistory>) request.getAttribute("listTopicsWithDates");
-                            for (JsonHistory history : listTopicsWithDates) {
-                                out.println("<tr><td><a style=\"text-decoration: none; color: black;\" href=\"#\" onclick=\"getTopicAndDateByLink(this); return false\">" +
-                                        history.getTopic() + " - " + history.getCreatedDate() +"</a></td></tr>");
-                            }
-                        %>
-                    </table>
+                <div class="panel panel-default">
+                    <div class="panel-heading" style="padding:0 5px; font-family: Arial, Helvetica, sans-serif; background-color: #7D7777; border-color: #7D7777; color: white; font-weight: bold;">History</div>
+                    <div class="panel-body">
+                        <table class="table table-hover ">
+                            <%
+                                List<JsonHistory> listTopicsWithDates = (List<JsonHistory>) request.getAttribute("listTopicsWithDates");
+                                for (JsonHistory history : listTopicsWithDates) {
+                                    out.println("<tr><td><a style=\"text-decoration: none; color: black;\" href=\"#\" onclick=\"getTopicAndDateByLink(this); return false\">" +
+                                            history.getTopic() + " - " + history.getCreatedDate() +"</a></td></tr>");
+                                }
+                            %>
+                        </table>
+                    </div>
                 </div>
-                <a href="#clearHistory" style="text-decoration: none; float: right;" onclick="deleteRequestHistory()">Clear history</a>
+                <a href="#clearHistory" style="margin-top: -20px; float: right; color:#7f7f7f; font-size:14px;" onclick="deleteRequestHistory()">Clear history</a>
             </div>
         </div>
         <div id="main">
@@ -102,7 +150,7 @@
 <script>
     var barChart;
     var ipAddress = jQuery.parseJSON('${jsonIpAddress}');
-    
+
     $(function(){
         $.datepicker.setDefaults(
                 $.extend($.datepicker.regional["en"])

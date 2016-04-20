@@ -3,7 +3,6 @@ package netCrackerTestApp;
 import netCrackerTestApp.Dao.MongoDao;
 import netCrackerTestApp.objects.Account;
 import netCrackerTestApp.objects.StreamTask;
-import org.apache.log4j.Logger;
 import org.springframework.social.twitter.api.impl.TwitterTemplate;
 
 import java.util.ArrayList;
@@ -12,7 +11,6 @@ import java.util.List;
 
 
 public class TwitterStreamExtractor {
-    private final Logger logger = Logger.getLogger(TwitterStreamExtractor.class);
     final List<String> listTopics = Arrays.asList("sport","music","news","policy");
     MongoDao mongoDao = MongoDao.getInstance();
     final List<Account> accounts = mongoDao.getAccounts();
