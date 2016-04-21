@@ -20,9 +20,17 @@ public class MongoDao {
     private final static  MongoDao mongoDao = new MongoDao();
     private final Logger logger = Logger.getLogger(MongoDao.class);
 
-    public final MongoDatabase db = new MongoClient("localhost").getDatabase("db");
+//    MongoClient mongoClient = new MongoClient("localhost");
+//    MongoDatabase db = mongoClient.getDatabase("database name");
+//    boolean auth = mongoClient..authenticate("username", "password".toCharArray());
+
+
+    public final MongoDatabase db = new MongoClient("localhost").getDatabase("local");
     private final MongoCollection<Document> accounts = db.getCollection("accounts");
     private final MongoCollection<Document> tweets = db.getCollection("tweets");
+
+
+
 
     public static MongoDao getInstance(){
         return mongoDao;
@@ -30,6 +38,8 @@ public class MongoDao {
 
     public List<Account> getAccounts() {
         List<Account> resultAccounts = new ArrayList<>();
+
+//        boolean auth = db.("testdb", "password".toCharArray());
 
         for (Document document : accounts.find()) {
             System.out.println(document);
@@ -62,7 +72,11 @@ public class MongoDao {
         List<BasicDBObject> obj = new ArrayList<>();
 
         if(firstDay.equals("") && lastDay.equals("")){
-            basicDBObject.put("textPost", Pattern.compile(str, Pattern.CASE_INSENSITIVE));
+//            basicDBObject.put("textPost", Pattern.compile(str, Pattern.CASE_INSENSITIVE));
+            basicDBObject.put("textPost", java.util.regex.Pattern.compile(str));
+
+//            basicDBObject.put("textPost", Pattern.compile("/.*"+str+"*./", Pattern.CASE_INSENSITIVE));
+
         }
         if(!firstDay.equals("") && !lastDay.equals("")){
             long convertedFirstDay = new DateTime(firstDay).getMillis();
