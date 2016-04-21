@@ -160,6 +160,7 @@ public class WebController {
         return mav;
     }
 
+
     @RequestMapping(value = "/sendEmail", method = RequestMethod.POST)
     public @ResponseBody String sendEmail(HttpServletRequest request,
                                           HttpServletResponse response,
