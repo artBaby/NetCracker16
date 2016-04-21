@@ -14,7 +14,6 @@
     <script src="${pageContext.request.contextPath}/javascript/jquery-ui.js"></script>
     <script src="${pageContext.request.contextPath}/javascript/bootstrap.min.js"></script>
 
-
 </head>
 
 <body>
@@ -27,7 +26,8 @@
             <li><a href="help">Help</a></li>
         </ul>
     </div>
-    <div id="description"><h1 style="text-align: center; font-style: normal;">Sentiment analysis</h1>
+    <div id="description">
+        <h1 style="text-align: center; font-style: normal;">Sentiment analysis</h1>
         <p>Sentiment analysis aims to determine the attitude of a speaker or a writer with respect to some topic or the overall contextual polarity of a document.</p>
     </div>
     <div id="content">
@@ -95,7 +95,7 @@
             <div id="sidebarBottom">
                 <div class="panel panel-default">
                     <div class="panel-heading" style="padding:0 5px; font-family: Arial, Helvetica, sans-serif; background-color: #7D7777; border-color: #7D7777; color: white; font-weight: bold;">History</div>
-                    <div class="panel-body">
+                    <div id="history" class="panel-body">
                         <table class="table table-hover ">
                             <%
                                 List<JsonHistory> listTopicsWithDates = (List<JsonHistory>) request.getAttribute("listTopicsWithDates");
