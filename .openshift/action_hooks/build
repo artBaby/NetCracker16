@@ -12,3 +12,7 @@ if [ ! -d jdk1.8.0_65 ]; then
   tar -zxf jdk-8u65-linux-i586.tar.gz
   rm jdk-8u65-linux-i586.tar.gz
 fi
+
+#!/bin/bash
+cd $OPENSHIFT_REPO_DIR
+mvn clean package -P openshift -s .openshift/settings.xml -DskipTests=true

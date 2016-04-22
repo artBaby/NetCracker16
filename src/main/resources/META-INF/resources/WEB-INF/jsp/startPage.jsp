@@ -20,7 +20,7 @@
 <div id="wrapper">
     <div id="header">
         <a href="/"><img src="../images/squirrel.png"  width="68" height="85" hspace="15"></a>
-        <h4 style="color: orangered; padding: 25px 0 0 0; display: inline-block;">Opinion mining</h4>
+        <h4 style="color: orangered; padding: 25px 0 0 0; display: inline-block;">Sentiment Analisys</h4>
         <ul>
             <li><a href="info">Information</a></li>
             <li><a href="help">Help</a></li>
@@ -28,7 +28,7 @@
     </div>
     <div id="description">
         <h1 style="text-align: center; font-style: normal;">Sentiment analysis</h1>
-        <p>Sentiment analysis aims to determine the attitude of a speaker or a writer with respect to some topic or the overall contextual polarity of a document.</p>
+        <p>Here you can get sentiment analysis of each topic which you are interested in. Just fill the fields below.</p>
     </div>
     <div id="content">
         <div id="sidebar">
