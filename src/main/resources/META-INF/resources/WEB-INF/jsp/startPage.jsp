@@ -20,7 +20,7 @@
 <div id="wrapper">
     <div id="header">
         <a href="/"><img src="../images/squirrel.png"  width="68" height="85" hspace="15"></a>
-        <h4 style="color: orangered; padding: 25px 0 0 0; display: inline-block;">Sentiment Analisys</h4>
+        <h4 style="color: orangered; padding: 25px 0 0 0; display: inline-block;">Opinion Mining</h4>
         <ul>
             <li><a href="info">Information</a></li>
             <li><a href="help">Help</a></li>
